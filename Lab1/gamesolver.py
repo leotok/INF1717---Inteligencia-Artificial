@@ -1,90 +1,89 @@
 ### LIBRARIES:
 
 from collections import deque
+from tree import Tree
 
 ### SETUP:
 
-ROOT = "C:\\Users\\e1312737.LAB-GRAD\\Documents\\ia161\\"
-ROOT_Leo = "/Users/LeoWajnsztok/Documents/Python/INF1771/Lab1/"
+arq = open(("maze41.txt"), "r+")
 
-file = open(( "maze41.txt"), "r+")
-
-table = file.read()
+matrix = arq.read()
 
 ### PROCESS:
 
-table = table.split('\n')
-# copia table pra table_percorrida que ira imprimir a matriz com o caminho
-table_percorrida = map(list,table)
+matrix = matrix.split('\n')
+# copia matrix pra matrix_percorrida que ira imprimir a matriz com o caminho
+matrix_percorrida = map(list,matrix)
 
 
 # Funcao para pegar os vizinhos de um no da matriz que nao estao bloqueados com 'X'
 
-def pegaVizinhos(tupla, arq):
+def pegaVizinhos(tupla, mat):
 
-    run = list()
-
+    run = [(tupla[0], tupla[1]+1), (tupla[0], tupla[1]-1), (tupla[0]+1, tupla[1]), (tupla[0]-1, tupla[1])]
     vizinhos = list()
 
-    run.append([tupla[0], tupla[1]+1])
-    run.append([tupla[0], tupla[1]-1])
-    run.append([tupla[0]+1, tupla[1]])
-    run.append([tupla[0]-1, tupla[1]])
-
     for i in run:
-        if ( arq[i[0]][i[1]] == '.' or arq[i[0]][i[1]] == 'F') and i[0] >= 0 and i[1] >= 0:
-            vizinhos.append([i[0], i[1]])
+        if ( mat[i[0]][i[1]] == '.' or mat[i[0]][i[1]] == 'F') and i[0] >= 0 and i[1] >= 0:
+            vizinhos.append((i[0], i[1]))
 
-    return(vizinhos)
+    return vizinhos 
 
 # Funcao para achar a posicao final no Maze representado por 'F'
 
-def findEnd(arq):
+def findEnd(mat):
 
-    for i in range(1, len(arq)):
-        for j in range(1, len(arq[i])):
+    for i in range(1, len(mat)):
+        for j in range(1, len(mat[i])):
 
-            if arq[i][j] == 'F':
+            if mat[i][j] == 'F':
 
-                return[i,j]
+                return(i,j)
 
 
-end = findEnd(table)
+end = findEnd(matrix)
 print 'End: ' + str(end)
 
 # Funcao para achar a posicao inicial no Maze representado por 'I'
 
-def findStart(arq):
+def findStart(mat):
 
-    for i in range(1, len(arq)):
-        for j in range(1, len(arq[i])):
+    for i in range(1, len(mat)):
+        for j in range(1, len(mat[i])):
 
-            if arq[i][j] == 'I':
+            if mat[i][j] == 'I':
 
                 return(i,j)
 
-start = findStart(table)
+start = findStart(matrix)
 
 # Funcao para executar a busca em largura e achar o caminho de 'I' a 'F'
 
-def treeSearch(start):
-    fila = deque()
+def bfs_search(start):
 
     visited = list()
 
+    fila = deque()
     fila.append(start)
+    
+    t_root = Tree(start)
 
     while len(fila) > 0:
         valorAtual = fila.popleft()
         visited.append(valorAtual)
 
+        t = t_root.get_node_of_value(valorAtual)
+
         if valorAtual == end:
             print('got it')
+            l = t.get_trail_from_node()
+            print l
+            print "Caminho de tamanho: " + str(len(l))
             return 1
 
-        table_percorrida[valorAtual[0]][valorAtual[1]] = 'o'
+        matrix_percorrida[valorAtual[0]][valorAtual[1]] = 'o'
 
-        vizinhos = pegaVizinhos(valorAtual, table)
+        vizinhos = pegaVizinhos(valorAtual, matrix)
 
         for vizinho in vizinhos:
 
@@ -93,9 +92,12 @@ def treeSearch(start):
 
             except:
                 fila.append(vizinho)
+                t.add_child(Tree(vizinho))
+                
+
     return 0
 
-print treeSearch(start)
+print bfs_search(start)
 
-for line in table_percorrida:
+for line in matrix_percorrida:
     print line
