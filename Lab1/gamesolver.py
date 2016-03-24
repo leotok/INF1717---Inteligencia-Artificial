@@ -13,7 +13,8 @@ matrix = arq.read()
 
 matrix = matrix.split('\n')
 # copia matrix pra matrix_percorrida que ira imprimir a matriz com o caminho
-matrix_percorrida = map(list,matrix)
+matrix_run = map(list,matrix)
+matrix_solution = map(list,matrix)
 
 
 # Funcao para pegar os vizinhos de um no da matriz que nao estao bloqueados com 'X'
@@ -76,12 +77,9 @@ def bfs_search(start):
 
         if valorAtual == end:
             print('got it')
-            l = t.get_trail_from_node()
-            print l
-            print "Caminho de tamanho: " + str(len(l))
-            return 1
+            return t.get_trail_from_node()
 
-        matrix_percorrida[valorAtual[0]][valorAtual[1]] = 'o'
+        matrix_run[valorAtual[0]][valorAtual[1]] = 'o'
 
         vizinhos = pegaVizinhos(valorAtual, matrix)
 
@@ -95,9 +93,18 @@ def bfs_search(start):
                 t.add_child(Tree(vizinho))
                 
 
-    return 0
+    return None
 
-print bfs_search(start)
+solution =  bfs_search(start)
+print "Caminho de tamanho: " + str(len(solution))
 
-for line in matrix_percorrida:
+print "Todos caminhos percorridos: \n"
+for line in matrix_run:
+    print line
+
+for i in solution:
+    matrix_solution[i.value[0]][i.value[1]] = '>'
+
+print "Caminho solucao: \n"
+for line in matrix_solution:
     print line
