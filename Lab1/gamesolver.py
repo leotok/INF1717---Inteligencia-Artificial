@@ -27,8 +27,15 @@ def pegaVizinhos(tupla, mat):
     vizinhos = list()
 
     for i in run:
-        if ( mat[i[0]][i[1]] == '.' or mat[i[0]][i[1]] == 'F') and i[0] >= 0 and i[1] >= 0:
-            vizinhos.append((i[0], i[1]))
+
+        try:
+
+            if ( mat[i[0]][i[1]] == '.' or mat[i[0]][i[1]] == 'F') and i[0] >= 0 and i[1] >= 0:
+                vizinhos.append((i[0], i[1]))
+
+        except IndexError:
+
+            print("end of matrix file reached")
 
     return vizinhos 
 
@@ -51,8 +58,8 @@ print 'End: ' + str(end)
 
 def findStart(mat):
 
-    for i in range(1, len(mat)):
-        for j in range(1, len(mat[i])):
+    for i in range(0, len(mat)):
+        for j in range(0, len(mat[i])):
 
             if mat[i][j] == 'I':
 
@@ -66,13 +73,20 @@ def bfs_search(start):
 
     visited = list()
 
+    print("start:")
+
+    print(start)
+
     fila = deque()
     fila.append(start)
-    
+
     t_root = Tree(start)
 
     while len(fila) > 0:
         valorAtual = fila.popleft()
+
+       # print(valorAtual)
+
         visited.append(valorAtual)
 
         t = t_root.get_node_of_value(valorAtual)
@@ -80,6 +94,9 @@ def bfs_search(start):
         if valorAtual == end:
             print('got it')
             return t.get_trail_from_node()
+
+
+       # print(valorAtual)
 
         matrix_run[valorAtual[0]][valorAtual[1]] = 'o'
 
@@ -95,7 +112,7 @@ def bfs_search(start):
                 t.add_child(Tree(vizinho))
                 
 
-    return None
+    return visited
 
 # final bfs_search    
 
@@ -103,12 +120,25 @@ solution =  bfs_search(start)
 print "Caminho de tamanho: " + str(len(solution))
 print solution
 
-print "Todos caminhos percorridos: \n"
-for line in matrix_run:
-    print line
+found_end = 0  # variavel de estado necessaria para o caso de ser beco sem saida
 
-for i in solution:
-    matrix_solution[i.value[0]][i.value[1]] = '>'
+for values in solution:
+    if values == end:
+        found_end = 1
+        break
+
+if found_end == 1:
+
+    print "Todos caminhos percorridos: \n"
+    for line in matrix_run:
+        print line
+
+    for i in solution:
+        matrix_solution[i.value[0]][i.value[1]] = '>'
+
+else:
+
+    print("end not found")
 
 print "Caminho solucao: \n"
 for line in matrix_solution:
