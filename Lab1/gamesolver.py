@@ -70,7 +70,7 @@ print "Start: " + str(start)
 
 # Funcao para executar a busca em largura e achar o caminho de 'I' a 'F'
 
-def bfs_search(start):
+def bfs_search(start, end):
 
     visited = list()
 
@@ -112,25 +112,25 @@ def bfs_search(start):
     return None
 
 # final bfs_search    
-
-solution =  bfs_search(start)
-
-if solution == None :
-    print "Nao ha solucao"
-
+if start ==  None or end == None:
+    print "Arquivo do mapa fora do padrao."
 else:
+    solution =  bfs_search(start, end)
 
-    print "Caminho de tamanho: " + str(len(solution))
-    print solution
+    if solution == None :
+        print "Nao ha solucao"
+
+    else:
+        print "Caminho de tamanho: " + str(len(solution))
+        print solution
+
+        for i in solution:
+            matrix_solution[i.value[0]][i.value[1]] = '>'
+
+        print "Caminho solucao: \n"
+        for line in matrix_solution:
+            print line
 
     print "Todos caminhos percorridos: \n"
     for line in matrix_run:
-        print line
-
-    for i in solution:
-        matrix_solution[i.value[0]][i.value[1]] = '>'
-
-
-    print "Caminho solucao: \n"
-    for line in matrix_solution:
         print line
