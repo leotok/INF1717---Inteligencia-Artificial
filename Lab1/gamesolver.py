@@ -9,6 +9,8 @@ arq = open(("maze41.txt"), "r+")
 
 matrix = arq.read()
 
+arq.close()
+
 ### PROCESS:
 
 matrix = matrix.split('\n')
@@ -95,8 +97,11 @@ def bfs_search(start):
 
     return None
 
+# final bfs_search    
+
 solution =  bfs_search(start)
 print "Caminho de tamanho: " + str(len(solution))
+print solution
 
 print "Todos caminhos percorridos: \n"
 for line in matrix_run:
