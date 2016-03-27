@@ -66,16 +66,13 @@ def findStart(mat):
                 return(i,j)
 
 start = findStart(matrix)
+print "Start: " + str(start)
 
 # Funcao para executar a busca em largura e achar o caminho de 'I' a 'F'
 
 def bfs_search(start):
 
     visited = list()
-
-    print("start:")
-
-    print(start)
 
     fila = deque()
     fila.append(start)
@@ -112,22 +109,19 @@ def bfs_search(start):
                 t.add_child(Tree(vizinho))
                 
 
-    return visited
+    return None
 
 # final bfs_search    
 
 solution =  bfs_search(start)
-print "Caminho de tamanho: " + str(len(solution))
-print solution
 
-found_end = 0  # variavel de estado necessaria para o caso de ser beco sem saida
+if solution == None :
+    print "Nao ha solucao"
 
-for values in solution:
-    if values == end:
-        found_end = 1
-        break
+else:
 
-if found_end == 1:
+    print "Caminho de tamanho: " + str(len(solution))
+    print solution
 
     print "Todos caminhos percorridos: \n"
     for line in matrix_run:
@@ -136,10 +130,7 @@ if found_end == 1:
     for i in solution:
         matrix_solution[i.value[0]][i.value[1]] = '>'
 
-else:
 
-    print("end not found")
-
-print "Caminho solucao: \n"
-for line in matrix_solution:
-    print line
+    print "Caminho solucao: \n"
+    for line in matrix_solution:
+        print line
