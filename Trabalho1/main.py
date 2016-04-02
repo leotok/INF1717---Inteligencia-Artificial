@@ -1,129 +1,98 @@
 # LIBRARIES:
 
+import os, sys
+import pygame
+from helpers import *
+from pygame.locals import *
 from collections import deque
+
 from tree import Tree
 from plane import Plane
+from tile import *
+from AStart import *
 
+
+if not pygame.font: print 'Warning, fonts disabled'
+if not pygame.mixer: print 'Warning, sound disabled'
 # Funcao para pegar os vizinhos de um no da matriz que nao estao bloqueados com 'X'
 
-def pegaVizinhos(tupla, mat):
-    run = [(tupla[0], tupla[1] + 1), (tupla[0], tupla[1] - 1), (tupla[0] + 1, tupla[1]), (tupla[0] - 1, tupla[1])]
-    vizinhos = list()
+def get_tilemap(arq):
 
-    for i in run:
+    with open(arq, "r") as f:
+        matrix = f.read()
 
-        try:
-
-            if (mat[i[0]][i[1]] != 'M') and i[0] >= 0 and i[1] >= 0:
-                vizinhos.append((i[0], i[1]))
-
-        except IndexError:
-
-            print("end of matrix file reached")
-
-    return vizinhos
-
-
-# Funcao para achar a posicao final no Maze representado por 'F'
-
-def findEnd(mat):
-    for i in range(1, len(mat)):
-        for j in range(1, len(mat[i])):
-
-            if mat[i][j] == 'F':
-                return (i, j)
-
-# Funcao para achar a posicao inicial no Maze representado por 'I'
-
-def findStart(mat):
-    for i in range(0, len(mat)):
-        for j in range(0, len(mat[i])):
-
-            if mat[i][j] == 'I':
-                return (i, j)
+    matrix = matrix.split('\n') 
+    tilemap = Tilemap(matrix)
+    return tilemap
 
 # Funcao para executar a busca em largura e achar o caminho de 'I' a 'F'
 
-def bfs_search(start, end):
+# def find_path(start, end, tilemap):
 
-    visited = list()
-    fila = deque()
-    fila.append(start)
+#     visited = list()
+#     fila = deque()
+#     fila.append(start)
 
-    t_root = Tree(start)
+#     t_root = Tree(start)
 
-    while len(fila) > 0:
+#     while len(fila) > 0:
 
-        valorAtual = fila.popleft()
+#         valorAtual = fila.popleft()
 
-        if valorAtual not in visited:
-            visited.append(valorAtual)
+#         if valorAtual not in visited:
+#             visited.append(valorAtual)
 
-        t = t_root.get_node_of_value(valorAtual)
+#         t = t_root.get_node_of_value(valorAtual)
 
-        if valorAtual == end:
-            print('got it')
-            return t.get_trail_from_node()
+#         if valorAtual == end:
+#             print('got it')
+#             return t.get_trail_from_node()
 
-        matrix_run[valorAtual[0]][valorAtual[1]] = 'o'
+#         vizinhos = getNeighbours(valorAtual, tilemap)
 
-        vizinhos = pegaVizinhos(valorAtual, matrix)
+#         for vizinho in vizinhos:
 
-        for vizinho in vizinhos:
+#             if vizinho not in visited and vizinho not in fila:
+#                 fila.append(vizinho)
+#                 t.add_child(Tree(vizinho))
 
-            if vizinho not in visited and vizinho not in fila:
-                fila.append(vizinho)
-                t.add_child(Tree(vizinho))
-
-    return None
-
-# main:
-
-squad = [Plane("F-22 Raptor", 1.5),
-         Plane("F-35 Lighting", 1.4),
-         Plane("T-50 PAK FA", 1.3),
-         Plane("Su-46", 1.2),
-         Plane("MiG-35", 1.1)]
+#     return None
 
 
-arq = open(("maze1.txt"), "r+")
-matrix = arq.read()
-arq.close()
+# Main:
 
-# PROCESS:
+if __name__ == "__main__":
 
-matrix = matrix.split('\n')
+    squad = [Plane("F-22 Raptor", 1.5),
+             Plane("F-35 Lighting", 1.4),
+             Plane("T-50 PAK FA", 1.3),
+             Plane("Su-46", 1.2),
+             Plane("MiG-35", 1.1)]
+
+    tilemap = get_tilemap("maze1.txt")
+    tilemap.print_map_log()
+
+    a_star = AStar(tilemap)
+
+    print "Start: ", a_star.start.x, a_star.start.y
+    print "End: ", a_star.end.x, a_star.end.y
+    print "h w: ", tilemap.height, tilemap.width
 
 
-# copia matrix pra matrix_percorrida que ira imprimir a matriz com o caminho
-matrix_run = map(list, matrix)
-matrix_solution = map(list, matrix)
 
-start = findStart(matrix)
-print "Start: " + str(start)
-end = findEnd(matrix)
-print 'End: ' + str(end)
-
-# final bfs_search
-if start == None or end == None:
-    print "Arquivo do mapa fora do padrao."
-else:
-    solution = bfs_search(start, end)
-
-    if solution == None:
-        print "Nao ha solucao"
-
+    if a_star.start == None or a_star.end == None:
+        print "Arquivo do mapa fora do padrao."
     else:
-        print "Caminho de tamanho: " + str(len(solution))
-        print solution
+        print "Solving:\n"
 
-        for i in solution:
-            matrix_solution[i.value[0]][i.value[1]] = '>'
+        solution = a_star.find_path(squad)
 
-        print "Caminho solucao: \n"
-        for line in matrix_solution:
-            print line
+        if solution == None:
+            print "Nao ha solucao"
 
-    print "Todos caminhos percorridos: \n"
-    for line in matrix_run:
-        print line
+        else:
+            print "Caminho de tamanho: ", len(solution)
+            print solution
+
+            tilemap.print_solution_map(solution)
+            

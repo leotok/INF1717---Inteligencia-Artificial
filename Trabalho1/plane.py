@@ -14,5 +14,3 @@ class Plane(object):
 
 	def lost_energy(self, energy_spent):
 		self.energy -= energy_spent
-
-
