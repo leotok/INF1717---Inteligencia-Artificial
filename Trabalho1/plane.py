@@ -10,7 +10,7 @@ class Plane(object):
 		return str(self.nome)
 
 	def __str__(self):
-		return "%s: power %.1f / life %d" %(self.nome, self.power, self.energy)
+		return "%s: power %.1f / energy %d" %(self.nome, self.power, self.energy)
 
 	def lost_energy(self, energy_spent):
 		self.energy -= energy_spent

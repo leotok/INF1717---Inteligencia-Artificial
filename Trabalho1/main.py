@@ -1,20 +1,15 @@
-# LIBRARIES:
-
 import os, sys
 import pygame
 from helpers import *
 from pygame.locals import *
 from collections import deque
 
-from tree import Tree
-from plane import Plane
+from plane import *
 from tile import *
-from AStart import *
-
+from AStar import *
 
 if not pygame.font: print 'Warning, fonts disabled'
 if not pygame.mixer: print 'Warning, sound disabled'
-# Funcao para pegar os vizinhos de um no da matriz que nao estao bloqueados com 'X'
 
 def get_tilemap(arq):
 

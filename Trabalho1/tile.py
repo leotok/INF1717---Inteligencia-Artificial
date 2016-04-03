@@ -90,12 +90,7 @@ class Tile(object):
 
 	def get_battle_time(self, base_num, planes):
 
-		print "BATTLE!", base_num
-
-		# return 3
-
 		base_cost = [60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 120]
 		power_sum = sum([ plane.power for plane in planes ])
-		print base_num
 		return float(base_cost[base_num] / power_sum)
 		

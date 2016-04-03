@@ -23,9 +23,7 @@ class AStar(object):
 
 	def get_neighbours(self, tile):
 
-		neighbours = list()
-		# print tile.x, tile.y
-		
+		neighbours = list()		
 		if tile.x < self.tiles.height - 1:
 			neighbours.append(self.tiles.get_tile(tile.x+1, tile.y))
 		if tile.y > 0:
@@ -37,6 +35,7 @@ class AStar(object):
 		return neighbours
 
 	def get_solution(self):
+
 		tile = self.end
 		solution = []
 		while tile.parent is not self.start:
@@ -58,7 +57,7 @@ class AStar(object):
 	def update_tile(self, neighbour, tile):
 
 		if neighbour.type_char == "B":
-			print neighbour.x,neighbour.y
+			
 			base_index = self.enemy_bases.index((neighbour.x,neighbour.y))
 			attacking_planes = self.get_planes_for_base(base_index)
 			move_cost = neighbour.get_battle_time(base_index, attacking_planes)
@@ -105,7 +104,3 @@ class AStar(object):
 					else:
 						self.update_tile(neighbour, tile)
 						heapq.heappush(self.opened, (neighbour.f, neighbour))
-
-
-
-
