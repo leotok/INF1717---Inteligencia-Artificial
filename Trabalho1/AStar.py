@@ -47,17 +47,17 @@ class AStar(object):
 
 		tactic = [[self.planes[4],self.planes[3]],[self.planes[4],self.planes[2]],
 				  [self.planes[3],self.planes[2]],[self.planes[3],self.planes[2]],
-				  [self.planes[3],self.planes[2]],[self.planes[3],self.planes[2]],
+				  [self.planes[3],self.planes[2]],[self.planes[1],self.planes[2]],
 				  [self.planes[1],self.planes[0]],[self.planes[1],self.planes[0]],
 				  [self.planes[1],self.planes[0]],
-				  [self.planes[1],self.planes[0],self.planes[4]],
+				  [self.planes[3],self.planes[0],self.planes[4]],
 				  [self.planes[1],self.planes[0],self.planes[4]]]
 		return tactic[base_index]
 
 	def update_tile(self, neighbour, tile):
 
 		if neighbour.type_char == "B":
-			
+
 			base_index = self.enemy_bases.index((neighbour.x,neighbour.y))
 			attacking_planes = self.get_planes_for_base(base_index)
 			move_cost = neighbour.get_battle_time(base_index, attacking_planes)

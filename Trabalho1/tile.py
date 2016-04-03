@@ -92,5 +92,7 @@ class Tile(object):
 
 		base_cost = [60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 120]
 		power_sum = sum([ plane.power for plane in planes ])
-		return float(base_cost[base_num] / power_sum)
+		time_spent = float(base_cost[base_num] / power_sum)
+		print time_spent, "min"
+		return time_spent
 		
