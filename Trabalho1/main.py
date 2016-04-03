@@ -52,7 +52,9 @@ if __name__ == "__main__":
 
         else:
             print "Caminho de tamanho: ", len(solution)
-            print solution
+            
+            for tile in solution:
+                print tile, tile.g, tile.h, tile.f,
 
             tilemap.print_solution_map(solution)
 
