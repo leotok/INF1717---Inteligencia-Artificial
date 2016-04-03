@@ -63,6 +63,7 @@ class AStar(object):
 			move_cost = neighbour.get_battle_time(base_index, attacking_planes)
 
 			if base_index not in self.destroyed_bases:
+				print move_cost, "min"
 				self.destroyed_bases.append(base_index)
 
 				for plane in attacking_planes: 
