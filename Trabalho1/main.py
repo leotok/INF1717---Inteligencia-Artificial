@@ -54,7 +54,7 @@ if __name__ == "__main__":
             print "Caminho de tamanho: ", len(solution)
             
             for tile in solution:
-                print tile, tile.g, tile.h, tile.f,
+                print "(%d, %d)   g: %.2f h: %.2f f: %.2f" %(tile.x, tile.y, tile.g, tile.h, tile.f)
 
             tilemap.print_solution_map(solution)
 
@@ -69,6 +69,8 @@ if __name__ == "__main__":
             if len(flying_planes) == 0:
                 print "\nTodos avioes foram abatidos! Tente de novo..."
             else:
+                total_cost = solution[0].f
+                print "\nCusto total: %.2f" %(total_cost)
                 print "\nAvioes sobreviventes:"
                 for plane in a_star.planes:
                     print plane
