@@ -15,6 +15,7 @@ class AStar(object):
 		self.start = tilemap.find_start()
 		self.end = tilemap.find_end()
 		self.enemy_bases = enemy_bases
+		self.destroyed_bases = []
 	    
 	def heuristic_function_for_tile(self, tile):
 		h = 1 *  (abs(tile.x - self.end.x) + abs(tile.y - self.end.y))
@@ -44,12 +45,12 @@ class AStar(object):
 		return solution
 
 	def get_planes_for_base(self, base_index):
-		
+
 		tactic = [[self.planes[4],self.planes[3]],[self.planes[4],self.planes[2]],
 				  [self.planes[3],self.planes[2]],[self.planes[3],self.planes[2]],
 				  [self.planes[3],self.planes[2]],[self.planes[3],self.planes[2]],
 				  [self.planes[1],self.planes[0]],[self.planes[1],self.planes[0]],
-				  [self.planes[1],self.planes[0],self.planes[4]],
+				  [self.planes[1],self.planes[0]],
 				  [self.planes[1],self.planes[0],self.planes[4]],
 				  [self.planes[1],self.planes[0],self.planes[4]]]
 		return tactic[base_index]
@@ -61,10 +62,18 @@ class AStar(object):
 			base_index = self.enemy_bases.index((neighbour.x,neighbour.y))
 			attacking_planes = self.get_planes_for_base(base_index)
 			move_cost = neighbour.get_battle_time(base_index, attacking_planes)
-			# self.planes = filter(lambda plane: plane.energy > 0, self.planes)
-			# if len(planes) == 0:
-			# 	print "Todos avioes foram abatidos!"
-			# sys.exit()
+
+			if base_index not in self.destroyed_bases:
+				self.destroyed_bases.append(base_index)
+
+				for plane in attacking_planes: 
+					plane.energy -= 1
+
+			flying_planes = filter(lambda plane: plane.energy > 0, self.planes)
+			if len(flying_planes) == 0:
+				print "Todos avioes foram abatidos! Tente de novo..."
+				sys.exit()
+
 		else:
 			move_cost = neighbour.get_cost()
 		

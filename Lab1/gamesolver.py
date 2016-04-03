@@ -5,7 +5,7 @@ from tree import Tree
 
 ### SETUP:
 
-arq = open(("maze1.txt"), "r+")
+arq = open(("maze41.txt"), "r+")
 
 matrix = arq.read()
 
@@ -108,6 +108,37 @@ def bfs_search(start, end):
                 fila.append(vizinho)
                 t.add_child(Tree(vizinho))
                 
+
+    return None
+
+def find_path(start, end, tilemap):
+
+    visited = list()
+    fila = deque()
+    fila.append(start)
+
+    t_root = Tree(start)
+
+    while len(fila) > 0:
+
+        valorAtual = fila.popleft()
+
+        if valorAtual not in visited:
+            visited.append(valorAtual)
+
+        t = t_root.get_node_of_value(valorAtual)
+
+        if valorAtual == end:
+            print('got it')
+            return t.get_trail_from_node()
+
+        vizinhos = getNeighbours(valorAtual, tilemap)
+
+        for vizinho in vizinhos:
+
+            if vizinho not in visited and vizinho not in fila:
+                fila.append(vizinho)
+                t.add_child(Tree(vizinho))
 
     return None
 
