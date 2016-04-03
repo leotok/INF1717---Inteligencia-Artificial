@@ -25,40 +25,6 @@ def get_tilemap(arq):
     tilemap = Tilemap(matrix)
     return tilemap
 
-# Funcao para executar a busca em largura e achar o caminho de 'I' a 'F'
-
-# def find_path(start, end, tilemap):
-
-#     visited = list()
-#     fila = deque()
-#     fila.append(start)
-
-#     t_root = Tree(start)
-
-#     while len(fila) > 0:
-
-#         valorAtual = fila.popleft()
-
-#         if valorAtual not in visited:
-#             visited.append(valorAtual)
-
-#         t = t_root.get_node_of_value(valorAtual)
-
-#         if valorAtual == end:
-#             print('got it')
-#             return t.get_trail_from_node()
-
-#         vizinhos = getNeighbours(valorAtual, tilemap)
-
-#         for vizinho in vizinhos:
-
-#             if vizinho not in visited and vizinho not in fila:
-#                 fila.append(vizinho)
-#                 t.add_child(Tree(vizinho))
-
-#     return None
-
-
 # Main:
 
 if __name__ == "__main__":
@@ -72,20 +38,19 @@ if __name__ == "__main__":
     tilemap = get_tilemap("maze1.txt")
     tilemap.print_map_log()
 
-    a_star = AStar(tilemap)
+    enemy_bases = [(37,19),(31,17),(31,33),(24,26),(24,9),(17,9),(17,26),(13,36),(9,30),(9,14),(4,13)]
+    a_star = AStar(tilemap, squad, enemy_bases)
 
     print "Start: ", a_star.start.x, a_star.start.y
     print "End: ", a_star.end.x, a_star.end.y
     print "h w: ", tilemap.height, tilemap.width
-
-
 
     if a_star.start == None or a_star.end == None:
         print "Arquivo do mapa fora do padrao."
     else:
         print "Solving:\n"
 
-        solution = a_star.find_path(squad)
+        solution = a_star.find_path()
 
         if solution == None:
             print "Nao ha solucao"
@@ -96,3 +61,6 @@ if __name__ == "__main__":
 
             tilemap.print_solution_map(solution)
             
+            print "Avioes sobreviventes:"
+            for plane in a_star.planes:
+                print plane

@@ -1,3 +1,6 @@
+from plane import *
+import sys
+
 class Tilemap(list):
 
 	def __init__(self, matrix):
@@ -58,28 +61,44 @@ class Tilemap(list):
 
 class Tile(object):
 
-    def __init__(self, x, y, type_char):
+	def __init__(self, x, y, type_char):
 
-        self.x = x
-        self.y = y
-        self.type_char = type_char
-        self.parent = None
-        self.g = 0
-        self.h = 0
-        self.f = 0
+		self.x = x
+		self.y = y
+		self.type_char = type_char
+		self.parent = None
+		self.g = 0
+		self.h = 0
+		self.f = 0
 
-    def __repr__(self):
-    	return str((self.x, self.y))
+	def __repr__(self):
+		return str((self.x, self.y))
 
-    def __str__(self):
-    	return str(self.type_char)
+	def __str__(self):
+		return str(self.type_char)
 
-    def get_cost(self, x, y):
+	def get_cost(self):
 
-		costs = { "M" : 200,
+		costs = { "I" : 999,
+				  "F" : 0,
+				  "M" : 200,
 				  "." : 1,
 				  "R" : 5,
-				  "C" : 50 }
+				  "C" : 50}
+		cost  = costs[self.type_char] 
+		return cost
 
-		return costs[self[coord[0]][1]]
+	def get_battle_time(self, base_num, planes):
+
+		print "num avioes: ",len(planes)
+		print "BATTLE!", base_num
+		
+		# return 3
+		for plane in planes: 
+			plane.energy -= 1
+
+		base_cost = [60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 120]
+		power_sum = sum([ plane.power for plane in planes ])
+		print base_num
+		return float(base_cost[base_num] / power_sum)
 		
