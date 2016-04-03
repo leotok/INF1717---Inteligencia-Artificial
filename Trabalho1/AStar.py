@@ -15,8 +15,8 @@ class AStar(object):
 		self.start = tilemap.find_start()
 		self.end = tilemap.find_end()
 		self.enemy_bases = enemy_bases
-		self.destroyed_bases = []
-	    
+		self.steps = 0
+	   
 	def heuristic_function_for_tile(self, tile):
 		h = 1 *  (abs(tile.x - self.end.x) + abs(tile.y - self.end.y))
 		return h
@@ -60,19 +60,8 @@ class AStar(object):
 
 			base_index = self.enemy_bases.index((neighbour.x,neighbour.y))
 			attacking_planes = self.get_planes_for_base(base_index)
-			move_cost = neighbour.get_battle_time(base_index, attacking_planes)
-
-			if base_index not in self.destroyed_bases:
-				print move_cost, "min"
-				self.destroyed_bases.append(base_index)
-
-				for plane in attacking_planes: 
-					plane.energy -= 1
-
-			flying_planes = filter(lambda plane: plane.energy > 0, self.planes)
-			if len(flying_planes) == 0:
-				print "Todos avioes foram abatidos! Tente de novo..."
-				sys.exit()
+			move_cost = Plane.get_battle_time(base_index, attacking_planes)
+			neighbour.planes_attackers = attacking_planes
 
 		else:
 			move_cost = neighbour.get_cost()
@@ -82,12 +71,23 @@ class AStar(object):
 		neighbour.parent = tile
 		neighbour.f = neighbour.h + neighbour.g
 
+	def print_by_step(self, tile):
+
+		print "Step ", self.steps
+		self.steps += 1
+		old_type = tile.type_char
+		tile.type_char = "o"
+		self.tiles.print_map_log()
+		raw_input("Pressione Enter para avancar.")
+		tile.type_char = old_type
+
 	def find_path(self):
 		# tile com menor custo f (g+h) fica no topo do heap
 		heapq.heappush(self.opened, (self.start.f, self.start))
 
 		while len(self.opened):
 			f, tile = heapq.heappop(self.opened)
+			# self.print_by_step(tile)
 			# closed eh um set de elementos unicos q ja foram percorridos
 			self.closed.add(tile)
 

@@ -43,7 +43,7 @@ if __name__ == "__main__":
     if a_star.start == None or a_star.end == None:
         print "Arquivo do mapa fora do padrao."
     else:
-        print "Solving:\n"
+        print "Solving..."
 
         solution = a_star.find_path()
 
@@ -55,7 +55,18 @@ if __name__ == "__main__":
             print solution
 
             tilemap.print_solution_map(solution)
-            
-            print "Avioes sobreviventes:"
-            for plane in a_star.planes:
-                print plane
+
+            for tile in solution:
+                if tile.planes_attackers is not None:
+                    print tile.x, tile.y, tile.planes_attackers
+                    for plane in tile.planes_attackers:
+                        plane.energy -= 1
+
+            flying_planes = filter(lambda plane: plane.energy > 0, a_star.planes)
+
+            if len(flying_planes) == 0:
+                print "\nTodos avioes foram abatidos! Tente de novo..."
+            else:
+                print "\nAvioes sobreviventes:"
+                for plane in a_star.planes:
+                    print plane

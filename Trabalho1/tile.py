@@ -1,5 +1,4 @@
 from plane import *
-import sys
 
 class Tilemap(list):
 
@@ -32,7 +31,7 @@ class Tilemap(list):
 
 		matrix_solution = map(list, self.matrix)
 
-		print "Caminho solucao: \n"
+		print "\nCaminho solucao:"
 
 		for i in solution:
 			matrix_solution[i.x][i.y] = '>'
@@ -70,6 +69,7 @@ class Tile(object):
 		self.g = 0
 		self.h = 0
 		self.f = 0
+		self.planes_attackers = None
 
 	def __repr__(self):
 		return str((self.x, self.y))
@@ -87,10 +87,3 @@ class Tile(object):
 				  "C" : 50}
 		cost  = costs[self.type_char] 
 		return cost
-
-	def get_battle_time(self, base_num, planes):
-
-		base_cost = [60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 120]
-		power_sum = sum([ plane.power for plane in planes ])
-		return float(base_cost[base_num] / power_sum)
-				
