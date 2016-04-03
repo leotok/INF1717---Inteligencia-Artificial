@@ -17,4 +17,6 @@ class Plane(object):
 
 		base_cost = [60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 120]
 		power_sum = sum([ plane.power for plane in planes ])
+		if power_sum == 0:
+			power_sum = 1
 		return float(base_cost[base_num] / power_sum)

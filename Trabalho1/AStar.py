@@ -45,13 +45,17 @@ class AStar(object):
 
 	def get_planes_for_base(self, base_index):
 
-		tactic = [[self.planes[4],self.planes[3]],[self.planes[4],self.planes[2]],
-				  [self.planes[3],self.planes[2]],[self.planes[3],self.planes[2]],
-				  [self.planes[3],self.planes[2]],[self.planes[1],self.planes[2]],
-				  [self.planes[1],self.planes[0]],[self.planes[1],self.planes[0]],
+		tactic = [[self.planes[4],self.planes[3]],
+				  [self.planes[4],self.planes[2]],
+				  [self.planes[3],self.planes[2],self.planes[0],self.planes[1]],
+				  [self.planes[3],self.planes[2]],
+				  [self.planes[3],self.planes[2]],
+				  [self.planes[1],self.planes[2]],
 				  [self.planes[1],self.planes[0]],
-				  [self.planes[3],self.planes[0],self.planes[4]],
-				  [self.planes[1],self.planes[0],self.planes[4]]]
+				  [self.planes[1],self.planes[0]],
+				  [self.planes[1],self.planes[0],self.planes[2],self.planes[3]],
+				  [self.planes[3],self.planes[0],self.planes[4],self.planes[1],self.planes[2]],
+				  [self.planes[1],self.planes[0],self.planes[4],self.planes[2],self.planes[3]]]
 		return tactic[base_index]
 
 	def update_tile(self, neighbour, tile):
