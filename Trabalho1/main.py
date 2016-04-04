@@ -69,7 +69,7 @@ if __name__ == "__main__":
             if len(flying_planes) == 0:
                 print "\nTodos avioes foram abatidos! Tente de novo..."
             else:
-                total_cost = solution[0].f
+                total_cost = solution[0].g
                 print "\nCusto total: %.2f" %(total_cost)
                 print "\nAvioes sobreviventes:"
                 for plane in a_star.planes:

@@ -52,8 +52,8 @@ class AStar(object):
 				  [self.planes[3],self.planes[2]],
 				  [self.planes[1],self.planes[2]],
 				  [self.planes[1],self.planes[0]],
-				  [self.planes[1],self.planes[0]],
-				  [self.planes[1],self.planes[0],self.planes[2],self.planes[3]],
+				  [self.planes[1],self.planes[0],self.planes[2]],
+				  [self.planes[1],self.planes[0],self.planes[3]],
 				  [self.planes[3],self.planes[0],self.planes[4],self.planes[1],self.planes[2]],
 				  [self.planes[1],self.planes[0],self.planes[4],self.planes[2],self.planes[3]]]
 		return tactic[base_index]
