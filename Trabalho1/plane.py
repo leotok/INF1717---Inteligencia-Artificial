@@ -1,10 +1,15 @@
-class Plane(object):
+import pygame
+from helpers import *
+from pygame.locals import *
+
+class Plane():
 
 	energy = 5
 
 	def __init__(self, nome, power):
 		self.nome = nome
 		self.power = power
+
 
 	def __repr__(self):
 		return str(self.nome)
@@ -20,3 +25,4 @@ class Plane(object):
 		if power_sum == 0:
 			power_sum = 1
 		return float(base_cost[base_num] / power_sum)
+

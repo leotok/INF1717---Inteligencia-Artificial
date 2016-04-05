@@ -12,6 +12,16 @@ class Tilemap(list):
 			for j in range(self.width):
 				self.append( Tile(i, j, matrix[i][j]) )
 
+	@staticmethod
+	def get_tilemap(arq):
+
+		with open(arq, "r") as f:
+			matrix = f.read()
+
+		matrix = matrix.split('\n') 
+		tilemap = Tilemap(matrix)
+		return tilemap
+
 	def get_tile(self, x, y):
 		try:
 			return self[ (x * (self.height -1)) + y]
