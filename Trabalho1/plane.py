@@ -33,7 +33,7 @@ class PlaneSprite(pygame.sprite.Sprite):
         self.image= load_image('xwing.png',-1)
         self.rect = pygame.Rect(0, 0, 64, 64)
         self.size = self.image.get_size()
-        self.image = pygame.transform.scale(self.image, (int(self.size[0] * 0.03), int(self.size[1] * 0.03)))
+        self.image = pygame.transform.scale(self.image, (int(self.size[0] * 0.01), int(self.size[1] * 0.01)))
         
         """Set the number of Pixels to move each time"""
         self.x_dist = 10

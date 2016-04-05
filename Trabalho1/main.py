@@ -52,12 +52,6 @@ class Main(object):
                         self.plane.move(event.key)
 
             self.screen.blit(self.background, (0, 0))   
-            if pygame.font:
-                font = pygame.font.Font(None, 36)
-                text = font.render("Star wars", 1, (255, 0, 0))
-                textpos = text.get_rect(centerx=self.background.get_width()/2)
-                self.screen.blit(text, textpos)
-
             a_star.tiles.tile_sprites_group.draw(self.screen)
             self.plane_sprites.draw(self.screen)
             pygame.display.flip()
@@ -122,5 +116,5 @@ if __name__ == "__main__":
                 for plane in a_star.planes:
                     print plane
 
-    MainWindow = Main(a_star, 800, 600)
+    MainWindow = Main(a_star, 1000, 1000)
     MainWindow.MainLoop()

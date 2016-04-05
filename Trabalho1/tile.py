@@ -3,6 +3,8 @@ import pygame
 from helpers import *
 from pygame.locals import *
 
+ratio = 0.38
+
 class Tilemap(list):
 
 	def __init__(self, matrix):
@@ -72,15 +74,14 @@ class Tilemap(list):
 
 	def create_sprite_map(self):
 
-		width = int(self.width/41)
-		height = int(self.height/42)       
+		width = (64 * ratio)
+		height = (64 * ratio)  
 
 		self.tile_sprites_group = pygame.sprite.Group()      
 
 		for x ,line in enumerate(self.matrix):
 			for y, tile in enumerate(line):
-				print x, y
-				self.tile_sprites_group.add(TileSprite(pygame.Rect(x*41, y*42, width, height), tile))
+				self.tile_sprites_group.add(TileSprite(pygame.Rect(y* width, x* height, width, height), tile))
 		
 
 
@@ -119,27 +120,27 @@ class TileSprite(pygame.sprite.Sprite):
 	def __init__(self, rect, type_char):
 
 		pygame.sprite.Sprite.__init__(self) 
-		if rect != None:
-			self.rect = rect
+
+		self.rect = rect
 
 		filename = ""
 
 		if type_char == "F":
 			filename = "deathstar_hole.png"
 		elif type_char == "M":
-			filename = "deathstar_m.jpg"
-		elif type_char == ".":
 			filename = "deathstar_dot.png"
+		elif type_char == ".":
+			filename = "deathstar_m.jpg"
 		elif type_char == "I":
 			filename = "deathstar_dot.png"
 		elif type_char == "C":
-			filename = "deathstar_turbolaser.png"
+			filename = "deathstar_turbolaser.jpg"
 		elif type_char == "B":
-			filename = "tiefighter.png"
+			filename = "tiefighter.jpg"
 		elif type_char == "R":
-			filename = "deathstar_turbolaser.png"
+			filename = "tropper.jpg"
    				
 
-		pygame.sprite.Sprite.__init__(self) 
 		self.image= load_image(filename,-1)
 		self.size = self.image.get_size()
+		self.image = pygame.transform.scale(self.image, (int(self.size[0] * ratio), int(self.size[1] * ratio)))
