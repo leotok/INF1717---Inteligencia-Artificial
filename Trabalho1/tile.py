@@ -79,6 +79,7 @@ class Tilemap(list):
 
 		for x ,line in enumerate(self.matrix):
 			for y, tile in enumerate(line):
+				print x, y
 				self.tile_sprites_group.add(TileSprite(pygame.Rect(x*41, y*42, width, height), tile))
 		
 
@@ -141,5 +142,4 @@ class TileSprite(pygame.sprite.Sprite):
 
 		pygame.sprite.Sprite.__init__(self) 
 		self.image= load_image(filename,-1)
-		self.rect = pygame.Rect(0, 0, 64, 64)
 		self.size = self.image.get_size()
