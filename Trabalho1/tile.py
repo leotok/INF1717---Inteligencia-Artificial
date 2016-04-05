@@ -126,7 +126,7 @@ class TileSprite(pygame.sprite.Sprite):
 		filename = ""
 
 		if type_char == "F":
-			filename = "deathstar_hole.png"
+			filename = "deathstar_hole.jpg"
 		elif type_char == "M":
 			filename = "deathstar_dot.png"
 		elif type_char == ".":
