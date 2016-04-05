@@ -31,7 +31,7 @@ class Main(object):
 
         self.background = pygame.Surface(self.screen.get_size())
         self.background = self.background.convert()
-        self.background.fill((0,0,0))
+        self.background.fill((255,255,255))
 
         while 1:
             for event in pygame.event.get():
@@ -44,7 +44,8 @@ class Main(object):
                     or (event.key == K_DOWN)):
                         self.plane.move(event.key)
 
-            self.screen.blit(self.background, (0, 0))
+            
+            self.screen.blit(self.bg.image, self.bg.rect)
             if pygame.font:
                 font = pygame.font.Font(None, 36)
                 text = font.render("Star wars", 1, (255, 0, 0))
@@ -60,6 +61,15 @@ class Main(object):
         self.plane = PlaneSprite()
         self.plane_sprites = pygame.sprite.RenderPlain((self.plane))
 
+        self.bg = Background("space.png",[0,0])
+
+class Background(pygame.sprite.Sprite):
+
+    def __init__(self, image_file, location):
+        pygame.sprite.Sprite.__init__(self)  #call Sprite initializer
+        self.image = pygame.image.load(image_file)
+        self.rect = self.image.get_rect()
+        self.rect.left, self.rect.top = location
 
 class PlaneSprite(pygame.sprite.Sprite):
     """This is our snake that will move around the screen"""
