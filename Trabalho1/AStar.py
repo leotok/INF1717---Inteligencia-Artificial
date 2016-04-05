@@ -4,7 +4,7 @@ import heapq
 
 class AStar(object):
 
-	def __init__(self, tilemap, planes, enemy_bases):
+	def __init__(self, tilemap, planes, enemy_bases, base_cost):
 
 		self.opened = []
 		heapq.heapify(self.opened)
@@ -15,6 +15,7 @@ class AStar(object):
 		self.start = tilemap.find_start()
 		self.end = tilemap.find_end()
 		self.enemy_bases = enemy_bases
+		self.base_cost = base_cost
 		self.steps = 0
 	   
 	def heuristic_function_for_tile(self, tile):
@@ -64,7 +65,7 @@ class AStar(object):
 
 			base_index = self.enemy_bases.index((neighbour.x,neighbour.y))
 			attacking_planes = self.get_planes_for_base(base_index)
-			move_cost = Plane.get_battle_time(base_index, attacking_planes)
+			move_cost = Plane.get_battle_time(self.base_cost[base_index], attacking_planes)
 			neighbour.planes_attackers = attacking_planes
 
 		else:

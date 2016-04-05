@@ -1,4 +1,7 @@
 from plane import *
+import pygame
+from helpers import *
+from pygame.locals import *
 
 class Tilemap(list):
 
@@ -67,6 +70,18 @@ class Tilemap(list):
 				return self[i]
 		return None
 
+	def create_sprite_map(self):
+
+		width = int(self.width/41)
+		height = int(self.height/42)       
+
+		self.tile_sprites_group = pygame.sprite.Group()      
+
+		for x ,line in enumerate(self.matrix):
+			for y, tile in enumerate(line):
+				self.tile_sprites_group.add(TileSprite(pygame.Rect(x*41, y*42, width, height), tile))
+		
+
 
 class Tile(object):
 
@@ -97,3 +112,34 @@ class Tile(object):
 				  "C" : 50}
 		cost  = costs[self.type_char] 
 		return cost
+
+class TileSprite(pygame.sprite.Sprite):
+
+	def __init__(self, rect, type_char):
+
+		pygame.sprite.Sprite.__init__(self) 
+		if rect != None:
+			self.rect = rect
+
+		filename = ""
+
+		if type_char == "F":
+			filename = "deathstar_hole.png"
+		elif type_char == "M":
+			filename = "deathstar_m.jpg"
+		elif type_char == ".":
+			filename = "deathstar_dot.png"
+		elif type_char == "I":
+			filename = "deathstar_dot.png"
+		elif type_char == "C":
+			filename = "deathstar_turbolaser.png"
+		elif type_char == "B":
+			filename = "tiefighter.png"
+		elif type_char == "R":
+			filename = "deathstar_turbolaser.png"
+   				
+
+		pygame.sprite.Sprite.__init__(self) 
+		self.image= load_image(filename,-1)
+		self.rect = pygame.Rect(0, 0, 64, 64)
+		self.size = self.image.get_size()
