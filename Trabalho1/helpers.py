@@ -8,7 +8,7 @@ def load_image(name, colorkey=None):
     
     fullname = os.path.join("images", name)
     try:
-        image = pygame.image.load(name)
+        image = pygame.image.load(fullname)
     except pygame.error, message:
         print 'Cannot load image:', fullname
         raise SystemExit, message
