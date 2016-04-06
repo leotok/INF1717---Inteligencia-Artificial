@@ -5,8 +5,8 @@ import pygame
 from pygame.locals import *
 
 def load_image(name, colorkey=None):
-    # fullname = os.path.join('data', 'images')
-    # fullname = os.path.join(fullname, name)
+    
+    fullname = os.path.join("images", name)
     try:
         image = pygame.image.load(name)
     except pygame.error, message:
