@@ -38,6 +38,7 @@ class Main(object):
         self.background.fill((0,0,0))
 
         solution_counter = -1
+        finished = False
         while 1:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -63,8 +64,10 @@ class Main(object):
             if tile != self.a_star.end:
                 solution_counter -= 1
                 self.plane.rect.topleft = self.a_star.tiles.get_tile_sprite(tile.x, tile.y).rect.topleft
-            else:
-                self.play_death_star_destruction_video()          
+            elif finished == False:
+                self.plane.rect.topleft = self.a_star.tiles.get_tile_sprite(tile.x, tile.y).rect.topleft
+                print '\n"Great shot kid! That was one in a million!" - Han Solo'
+                finished = True
 
 
     def load_sprites(self):
@@ -74,19 +77,6 @@ class Main(object):
         self.plane.rect.topleft = [0,0]        
         tile = self.solution[-1]
         self.plane.rect.topleft = self.a_star.tiles.get_tile_sprite(tile.x, tile.y).rect.topleft
-            
-
-    def play_death_star_destruction_video(self):
-
-        movie = pygame.movie.Movie("death_start_destruction.mp4")
-        self.screen = pygame.display.set_mode(movie.get_size())
-        movie_screen = pygame.Surface(movie.get_size()).convert()
-        movie.set_display(movie_screen)
-        movie.play()
-
-        self.blit(movie_screen, (0,0))
-        pygame.display.update()
-
 
 if __name__ == "__main__":
 
