@@ -18,6 +18,7 @@ class Main(object):
     def __init__(self, a_star, width, height):
 
         pygame.init()
+        self.solution = a_star.get_solution()
         self.a_star = a_star
         self.width = width
         self.height = height
@@ -26,20 +27,16 @@ class Main(object):
     def MainLoop(self):
 
         # Load All of our Sprites
-        self.load_sprites()
         a_star.tiles.create_sprite_map()
+        self.load_sprites()
         # tell pygame to keep sending up keystrokes when they are held down
         pygame.key.set_repeat(500, 30)
-
-        # self.background = pygame.Surface(self.screen.get_size())
-        # self.background = self.background.convert()
-        # self.background.fill((255,255,255))
 
         self.background = pygame.Surface(self.screen.get_size())
         self.background = self.background.convert()
         self.background.fill((0,0,0))
 
-
+        solution_counter = -1
         while 1:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -49,17 +46,34 @@ class Main(object):
                     or (event.key == K_LEFT)
                     or (event.key == K_UP)
                     or (event.key == K_DOWN)):
-                        self.plane.move(event.key)
+                        solution_counter = -1
+                        tile = self.solution[-1]
+                        self.plane.rect.topleft = self.a_star.tiles.get_tile_sprite(tile.x, tile.y).rect.topleft
+
 
             self.screen.blit(self.background, (0, 0))   
             a_star.tiles.tile_sprites_group.draw(self.screen)
             self.plane_sprites.draw(self.screen)
             pygame.display.flip()
 
+            pygame.time.wait(100)
+
+            tile = self.solution[solution_counter]
+            if tile != self.a_star.end:
+                solution_counter -= 1
+            self.plane.rect.topleft = self.a_star.tiles.get_tile_sprite(tile.x, tile.y).rect.topleft
+
+
+
     def load_sprites(self):
 
         self.plane = PlaneSprite()
         self.plane_sprites = pygame.sprite.RenderPlain((self.plane))
+        self.plane.rect.topleft = [0,0]        
+        tile = self.solution[-1]
+        self.plane.rect.topleft = self.a_star.tiles.get_tile_sprite(tile.x, tile.y).rect.topleft
+            
+        
 
 if __name__ == "__main__":
 

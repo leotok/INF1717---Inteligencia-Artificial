@@ -33,6 +33,12 @@ class Tilemap(list):
 		except IndexError:
 			print "IndexError: ", x, y
 
+	def get_tile_sprite(self, x, y):
+		try:
+			return self.tile_sprites_list[ (x * (self.height -1)) + y]
+		except IndexError:
+			print "IndexError: ", x, y
+
 	def print_map_log(self):
 		j = 0
 		for i in range(len(self)):
@@ -77,11 +83,14 @@ class Tilemap(list):
 		width = (64 * ratio)
 		height = (64 * ratio)  
 
-		self.tile_sprites_group = pygame.sprite.Group()      
+		self.tile_sprites_group = pygame.sprite.Group()  
+		self.tile_sprites_list = []    
 
 		for x ,line in enumerate(self.matrix):
 			for y, tile in enumerate(line):
-				self.tile_sprites_group.add(TileSprite(pygame.Rect(y* width, x* height, width, height), tile))
+				tile_sprite = TileSprite(pygame.Rect(y* width, x* height, width, height), tile, x , y)
+				self.tile_sprites_group.add(tile_sprite)
+				self.tile_sprites_list.append(tile_sprite)
 		
 
 
@@ -117,11 +126,13 @@ class Tile(object):
 
 class TileSprite(pygame.sprite.Sprite):
 
-	def __init__(self, rect, type_char):
+	def __init__(self, rect, type_char, x, y):
 
 		pygame.sprite.Sprite.__init__(self) 
-
+		self.x = x
+		self.y = y
 		self.rect = rect
+		self.type_char = type_char
 
 		filename = ""
 

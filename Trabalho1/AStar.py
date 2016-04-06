@@ -39,9 +39,11 @@ class AStar(object):
 
 		tile = self.end
 		solution = []
+		solution.append(tile)
 		while tile.parent is not self.start:
 			tile = tile.parent
 			solution.append(tile)
+		solution.append(self.start)
 		return solution
 
 	def get_planes_for_base(self, base_index):
