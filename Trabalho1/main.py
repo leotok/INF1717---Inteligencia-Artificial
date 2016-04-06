@@ -1,5 +1,6 @@
 import os, sys
 import pygame
+from pygame import display,movie
 from helpers import *
 from pygame.locals import *
 from collections import deque
@@ -61,8 +62,9 @@ class Main(object):
             tile = self.solution[solution_counter]
             if tile != self.a_star.end:
                 solution_counter -= 1
-            self.plane.rect.topleft = self.a_star.tiles.get_tile_sprite(tile.x, tile.y).rect.topleft
-
+                self.plane.rect.topleft = self.a_star.tiles.get_tile_sprite(tile.x, tile.y).rect.topleft
+            else:
+                self.play_death_star_destruction_video()          
 
 
     def load_sprites(self):
@@ -73,7 +75,18 @@ class Main(object):
         tile = self.solution[-1]
         self.plane.rect.topleft = self.a_star.tiles.get_tile_sprite(tile.x, tile.y).rect.topleft
             
-        
+
+    def play_death_star_destruction_video(self):
+
+        movie = pygame.movie.Movie("death_start_destruction.mp4")
+        self.screen = pygame.display.set_mode(movie.get_size())
+        movie_screen = pygame.Surface(movie.get_size()).convert()
+        movie.set_display(movie_screen)
+        movie.play()
+
+        self.blit(movie_screen, (0,0))
+        pygame.display.update()
+
 
 if __name__ == "__main__":
 
