@@ -19,7 +19,7 @@ class AStar(object):
 		self.steps = 0
 	   
 	def heuristic_function_for_tile(self, tile):
-		h = 1 *  (abs(tile.x - self.end.x) + abs(tile.y - self.end.y))
+		h = 0.9 *  (abs(tile.x - self.end.x) + abs(tile.y - self.end.y))
 		return h
 
 	def get_neighbours(self, tile):
@@ -36,7 +36,8 @@ class AStar(object):
 		return neighbours
 
 	def get_solution(self):
-
+		print "Em aberto: ",len(self.opened)
+		print "Visitados: ", len(self.closed)
 		tile = self.end
 		solution = []
 		solution.append(tile)
@@ -48,17 +49,19 @@ class AStar(object):
 
 	def get_planes_for_base(self, base_index):
 
-		tactic = [[self.planes[4],self.planes[0]],
-				  [self.planes[4],self.planes[2],self.planes[3]],
-				  [self.planes[3],self.planes[2],self.planes[1]],
-				  [self.planes[3],self.planes[2]],
-				  [self.planes[3],self.planes[2]],
-				  [self.planes[1],self.planes[2]],
-				  [self.planes[1],self.planes[0]],
-				  [self.planes[1],self.planes[0],self.planes[2]],
-				  [self.planes[1],self.planes[0],self.planes[3]],
-				  [self.planes[3],self.planes[0],self.planes[4],self.planes[1],self.planes[2]],
-				  [self.planes[1],self.planes[0],self.planes[4],self.planes[2],self.planes[3]]]
+  		# custo = 532,88
+  		tactic = [[self.planes[0],self.planes[1],self.planes[2],self.planes[3]],
+				  [self.planes[0],self.planes[1],self.planes[2],self.planes[3],self.planes[4]],
+				  [self.planes[0],self.planes[1],self.planes[2],self.planes[3],self.planes[4]],
+				  [],
+				  [],
+				  [],
+				  [],
+				  [self.planes[0],self.planes[1],self.planes[2],self.planes[3],self.planes[4]],
+				  [self.planes[0],self.planes[1],self.planes[2],self.planes[3],self.planes[4]],
+				  [],
+  				  []]
+
 		return tactic[base_index]
 
 	def update_tile(self, neighbour, tile):

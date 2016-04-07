@@ -23,10 +23,12 @@ class Plane():
 		power_sum = sum([ plane.power for plane in planes ])
 		if power_sum == 0:
 			power_sum = 1
-		return float(base_cost / power_sum)
+
+		battle_time = float(base_cost / power_sum)
+		print base_cost, battle_time, "min"
+		return battle_time
 
 class PlaneSprite(pygame.sprite.Sprite):
-    """This is our snake that will move around the screen"""
     
     def __init__(self):
         pygame.sprite.Sprite.__init__(self) 
@@ -36,6 +38,3 @@ class PlaneSprite(pygame.sprite.Sprite):
         ratio = 0.3908
         self.image = pygame.transform.scale(self.image, (int(self.size[0] * ratio), int(self.size[1] * ratio)))
         
-        """Set the number of Pixels to move each time"""
-        self.x_dist = 64 * ratio
-        self.y_dist = 64 * ratio
