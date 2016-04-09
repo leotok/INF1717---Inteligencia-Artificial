@@ -49,7 +49,7 @@ class AStar(object):
 
 	def get_planes_for_base(self, base_index):
 
-  		# custo = 532,88
+  		# custo = 532,88 bases de 1 a 11
   		tactic = [[self.planes[0],self.planes[1],self.planes[2],self.planes[3]],
 				  [self.planes[0],self.planes[1],self.planes[2],self.planes[3],self.planes[4]],
 				  [self.planes[0],self.planes[1],self.planes[2],self.planes[3],self.planes[4]],

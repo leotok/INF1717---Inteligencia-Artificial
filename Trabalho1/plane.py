@@ -6,16 +6,18 @@ class Plane():
 
 	energy = 5
 
-	def __init__(self, nome, power):
-		self.nome = nome
+	def __init__(self, name, power, codename, pilot):
+		self.name = name
 		self.power = power
+		self.codename = codename
+		self.pilot = pilot
 
 
 	def __repr__(self):
-		return str(self.nome)
+		return str(self.name)
 
 	def __str__(self):
-		return "%s: power %.1f / energy %d" %(self.nome, self.power, self.energy)
+		return "%s: power %.1f / energy %d" %(self.name, self.power, self.energy)
 
 	@staticmethod
 	def get_battle_time(base_cost, planes):
@@ -37,4 +39,14 @@ class PlaneSprite(pygame.sprite.Sprite):
         self.size = self.image.get_size()
         ratio = 0.3908
         self.image = pygame.transform.scale(self.image, (int(self.size[0] * ratio), int(self.size[1] * ratio)))
+        
+class PilotSprite(pygame.sprite.Sprite):
+
+	def __init__(self, pilot_num, plane):
+
+		self.plane = plane
+		pygame.sprite.Sprite.__init__(self)
+		self.image= load_image("red" + str(pilot_num) + ".jpg" , -1)
+		# self.size = self.image.get_size()
+		self.rect = pygame.Rect(1010, 20 + (pilot_num-2)  * 200, 150, 150)
         

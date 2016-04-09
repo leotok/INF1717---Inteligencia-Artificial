@@ -8,11 +8,11 @@ def load_image(name, colorkey=None):
     
     fullname = os.path.join("images", name)
     try:
-        image = pygame.image.load(fullname)
+        image = pygame.image.load(fullname).convert_alpha()
     except pygame.error, message:
         print 'Cannot load image:', fullname
         raise SystemExit, message
-    image = image.convert()
+    # image = image.convert()
     if colorkey is not None:
         if colorkey is -1:
             colorkey = image.get_at((0,0))

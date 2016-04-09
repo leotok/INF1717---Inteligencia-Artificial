@@ -35,7 +35,7 @@ class Main(object):
 
         self.background = pygame.Surface(self.screen.get_size())
         self.background = self.background.convert()
-        self.background.fill((0,0,0))
+        self.background.fill((145,145,145))
 
         solution_counter = -1
         finished = False
@@ -55,7 +55,29 @@ class Main(object):
 
             self.screen.blit(self.background, (0, 0))   
             a_star.tiles.tile_sprites_group.draw(self.screen)
-            self.plane_sprites.draw(self.screen)
+            for sprite, p in zip(self.pilots_sprites, self.pilots):
+                sprite.draw(self.screen)
+                if pygame.font:
+                    font = pygame.font.Font(None, 22)
+                    text_name = font.render("%s" %(p.plane.name), 1, (35, 35, 35))
+                    text_codename = font.render("%s" %(p.plane.codename), 1, (35, 35, 35))
+                    text_pilot = font.render("%s" %(p.plane.pilot), 1, (35, 35, 35))
+                    text_power = font.render("Power: %.1f" %(p.plane.power), 1, (35, 35, 35))
+                    text_energy = font.render("Energy: %d" %(p.plane.energy), 1, (35, 35, 35))
+                    textpos = p.rect.topright
+                    textpos_2 = (textpos[0] + 5,textpos[1] + 5)
+                    textpos_3 = (textpos_2[0],textpos_2[1] + 20)
+                    textpos_4 = (textpos_2[0],textpos_2[1] + 40)
+                    textpos_5 = (textpos_2[0],textpos_2[1] + 60)
+                    textpos_6 = (textpos_2[0],textpos_2[1] + 80)
+                    self.screen.blit(text_name, textpos_2)
+                    self.screen.blit(text_codename, textpos_3)
+                    self.screen.blit(text_pilot, textpos_4)
+                    self.screen.blit(text_power, textpos_5)
+                    self.screen.blit(text_energy, textpos_6)
+
+            
+            self.plane_sprite.draw(self.screen)
             pygame.display.flip()
 
             pygame.time.wait(100)
@@ -72,19 +94,27 @@ class Main(object):
 
     def load_sprites(self):
 
+        self.pilots_sprites = []
+        self.pilots = []
+
+        for i, plane in enumerate(self.a_star.planes):
+            sprite = PilotSprite(i+2, self.a_star.planes[i])
+            self.pilots.append(sprite)
+            self.pilots_sprites.append(pygame.sprite.RenderPlain((sprite)))
+
         self.plane = PlaneSprite()
-        self.plane_sprites = pygame.sprite.RenderPlain((self.plane))
+        self.plane_sprite = pygame.sprite.RenderPlain((self.plane))
         self.plane.rect.topleft = [0,0]        
         tile = self.solution[-1]
         self.plane.rect.topleft = self.a_star.tiles.get_tile_sprite(tile.x, tile.y).rect.topleft
 
 if __name__ == "__main__":
 
-    squad = [Plane("F-22 Raptor", 1.5),
-             Plane("F-35 Lighting", 1.4),
-             Plane("T-50 PAK FA", 1.3),
-             Plane("Su-46", 1.2),
-             Plane("MiG-35", 1.1)]
+    squad = [Plane("F-22 Raptor", 1.5, "Wedge Antilles", "Red 2"),
+             Plane("F-35 Lighting", 1.4, "Biggs Darklighter", "Red 3"),
+             Plane("T-50 PAK FA", 1.3, "John D. Branon", "Red 4"),
+             Plane("Su-46", 1.2 , "Luke Skywalker", "Red 5"),
+             Plane("MiG-35", 1.1, "Jek Porkins", "Red 6")]
 
     tilemap = Tilemap.get_tilemap("maze1.txt")
     tilemap.print_map_log()
@@ -133,5 +163,5 @@ if __name__ == "__main__":
                 for plane in a_star.planes:
                     print plane
 
-    MainWindow = Main(a_star, 1000, 1000)
+    MainWindow = Main(a_star, 1300, 1000)
     MainWindow.MainLoop()
