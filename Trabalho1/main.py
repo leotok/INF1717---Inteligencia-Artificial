@@ -50,14 +50,20 @@ class Main(object):
                     or (event.key == K_DOWN)):
                         solution_counter = -1
                         tile = self.solution[-1]
+                        finished = false
                         self.plane.rect.topleft = self.a_star.tiles.get_tile_sprite(tile.x, tile.y).rect.topleft
+                        for p in a_star.planes:
+                            p.energy = 5
 
 
             self.screen.blit(self.background, (0, 0))   
             a_star.tiles.tile_sprites_group.draw(self.screen)
-            for sprite, p in zip(self.pilots_sprites, self.pilots):
-                sprite.draw(self.screen)
-                if pygame.font:
+
+            tile = self.solution[solution_counter]
+
+            if pygame.font:
+                for sprite, p in zip(self.pilots_sprites, self.pilots):
+                    sprite.draw(self.screen)
                     font = pygame.font.Font(None, 22)
                     text_name = font.render("%s" %(p.plane.name), 1, (35, 35, 35))
                     text_codename = font.render("%s" %(p.plane.codename), 1, (35, 35, 35))
@@ -70,11 +76,17 @@ class Main(object):
                     textpos_4 = (textpos_2[0],textpos_2[1] + 40)
                     textpos_5 = (textpos_2[0],textpos_2[1] + 60)
                     textpos_6 = (textpos_2[0],textpos_2[1] + 80)
+
                     self.screen.blit(text_name, textpos_2)
                     self.screen.blit(text_codename, textpos_3)
                     self.screen.blit(text_pilot, textpos_4)
                     self.screen.blit(text_power, textpos_5)
                     self.screen.blit(text_energy, textpos_6)
+
+                text_cost = pygame.font.Font(None, 36).render("Cost: %.2f min" %(tile.g), 1, (35, 35, 35))
+                textpos_cost = self.pilots[4].rect.bottomleft
+                textpos_cost = (textpos_cost[0],textpos_cost[1] + 10)
+                self.screen.blit(text_cost, textpos_cost)
 
             
             self.plane_sprite.draw(self.screen)
@@ -82,10 +94,21 @@ class Main(object):
 
             pygame.time.wait(100)
 
-            tile = self.solution[solution_counter]
+            
             if tile != self.a_star.end:
                 solution_counter -= 1
                 self.plane.rect.topleft = self.a_star.tiles.get_tile_sprite(tile.x, tile.y).rect.topleft
+
+
+                if tile.planes_attackers is not None:
+                    for plane in tile.planes_attackers:
+                        plane.energy -= 1
+
+                flying_planes = filter(lambda plane: plane.energy > 0, a_star.planes)
+                if len(flying_planes) == 0:
+                    print "\nTodos avioes foram ab\atidos! Tente de novo..."
+                    break
+
             elif finished == False:
                 self.plane.rect.topleft = self.a_star.tiles.get_tile_sprite(tile.x, tile.y).rect.topleft
                 print '\n"Great shot kid! That was one in a million!" - Han Solo'
@@ -146,22 +169,12 @@ if __name__ == "__main__":
 
             tilemap.print_solution_map(solution)
 
-            for tile in solution:
-                if tile.planes_attackers is not None:
-                    print tile.x, tile.y, tile.planes_attackers
-                    for plane in tile.planes_attackers:
-                        plane.energy -= 1
-
-            flying_planes = filter(lambda plane: plane.energy > 0, a_star.planes)
-
-            if len(flying_planes) == 0:
-                print "\nTodos avioes foram ab\atidos! Tente de novo..."
-            else:
-                total_cost = solution[0].g
-                print "\nCusto total: %.2f" %(total_cost)
-                print "\nAvioes sobreviventes:"
-                for plane in a_star.planes:
-                    print plane
+            
+            total_cost = solution[0].g
+            print "\nCusto total: %.2f" %(total_cost)
+            print "\nAvioes sobreviventes:"
+            for plane in a_star.planes:
+                print plane
 
     MainWindow = Main(a_star, 1300, 1000)
     MainWindow.MainLoop()

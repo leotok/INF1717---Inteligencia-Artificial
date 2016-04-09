@@ -48,5 +48,5 @@ class PilotSprite(pygame.sprite.Sprite):
 		pygame.sprite.Sprite.__init__(self)
 		self.image= load_image("red" + str(pilot_num) + ".jpg" , -1)
 		# self.size = self.image.get_size()
-		self.rect = pygame.Rect(1010, 20 + (pilot_num-2)  * 200, 150, 150)
+		self.rect = pygame.Rect(1010, 10 + (pilot_num-2)  * 170, 150, 150)
         
