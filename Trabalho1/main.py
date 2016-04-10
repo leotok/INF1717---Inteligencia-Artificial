@@ -179,9 +179,6 @@ if __name__ == "__main__":
             
             total_cost = solution[0].g
             print "\nCusto total: %.2f" %(total_cost)
-            print "\nAvioes sobreviventes:"
-            for plane in a_star.planes:
-                print plane
 
     MainWindow = Main(a_star, 1300, 1000)
     MainWindow.MainLoop()
