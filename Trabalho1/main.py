@@ -50,7 +50,7 @@ class Main(object):
                     or (event.key == K_DOWN)):
                         solution_counter = -1
                         tile = self.solution[-1]
-                        finished = false
+                        finished = False
                         self.plane.rect.topleft = self.a_star.tiles.get_tile_sprite(tile.x, tile.y).rect.topleft
                         for p in a_star.planes:
                             p.energy = 5
