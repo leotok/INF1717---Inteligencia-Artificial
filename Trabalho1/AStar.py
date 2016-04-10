@@ -11,7 +11,7 @@ class AStar(object):
 		self.closed = set()
 		self.tiles = tilemap
 		self.planes = planes
-
+		self.total_time = 0
 		self.start = tilemap.find_start()
 		self.end = tilemap.find_end()
 		self.enemy_bases = enemy_bases

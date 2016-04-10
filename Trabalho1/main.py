@@ -1,4 +1,5 @@
 import os, sys
+import time
 import pygame
 from pygame import display,movie
 from helpers import *
@@ -88,6 +89,9 @@ class Main(object):
                 textpos_cost = (textpos_cost[0],textpos_cost[1] + 10)
                 self.screen.blit(text_cost, textpos_cost)
 
+                text_time = pygame.font.Font(None, 26).render("Found in %.6f secs" %(a_star.total_time), 1, (35, 35, 35))
+                textpos_time = (textpos_cost[0],textpos_cost[1] + 40)
+                self.screen.blit(text_time, textpos_time)
             
             self.plane_sprite.draw(self.screen)
             pygame.display.flip()
@@ -156,7 +160,10 @@ if __name__ == "__main__":
     else:
         print "Solving..."
 
+        start_time = time.time()
         solution = a_star.find_path()
+        a_star.total_time = (time.time() - start_time)
+        print("Found solution in %s seconds " % a_star.total_time )
 
         if solution == None:
             print "Nao ha solucao"
