@@ -26,6 +26,19 @@ def load_game():
 		
 		enemies_pos.append([random.randint(2,24), random.randint(2,24)]) # 2 para que nao caia na mesma casa em que o jogo comeca
 
+	# god position
+
+	gold_pos = []
+
+	while(len(gold_pos) < 3):
+
+		new_gold_pos = [random.randint(2,24), random.randint(2,24)]
+
+		while new_gold_pos in gold_pos:
+			new_gold_pos = [random.randint(2,24), random.randint(2,24)]
+
+		gold_pos.append([random.randint(2,24), random.randint(2,24)]) # 2 para que nao caia na mesma casa em que o jogo comeca
+
 	# criando nossos monstros
 
 	enemies = str(MonsterTypes.DAMAGE20)*2 + str(MonsterTypes.DAMAGE50)*2 + str(MonsterTypes.TRANSPORT)*4 + str(MonsterTypes.HOLE)*8
@@ -53,6 +66,10 @@ def load_game():
 	for pos in range(len(enemies_pos)):
 
 		maze[enemies_pos[pos][0] - 1][enemies_pos[pos][1] - 1] = enemies[pos]
+
+	for pos in range(len(gold_pos)):
+
+		maze[gold_pos[pos][0] - 1][gold_pos[pos][1] - 1] = 'O'
 
 	board = Maze.Maze(maze, enemies_list)
 
