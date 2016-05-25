@@ -20,21 +20,21 @@ aumenta_custo(X) :- custo(Z), Y is Z + X, retract(custo(_)), assert(custo(Y)).
 pega_ouro(X) :-  ouro_bolsa(Z), Y is Z + X, retract(ouro(_)), assert(ouro(Y)).
 
 
-virar_direita :- olhar(norte), retract(olhar(_)), assert(olhar(leste)),!.
-virar_direita :- olhar(oeste), retract(olhar(_)), assert(olhar(norte)),!.
-virar_direita :- olhar(sul), retract(olhar(_)), assert(olhar(oeste)),!.
-virar_direita :- olhar(leste), retract(olhar(_)), assert(olhar(sul)),!.
+virar_direita :- olhar(norte), perde_vida(1), retract(olhar(_)), assert(olhar(leste)),!.
+virar_direita :- olhar(oeste), perde_vida(1), retract(olhar(_)), assert(olhar(norte)),!.
+virar_direita :- olhar(sul), perde_vida(1), retract(olhar(_)), assert(olhar(oeste)),!.
+virar_direita :- olhar(leste), perde_vida(1), retract(olhar(_)), assert(olhar(sul)),!.
 
-andar :- posicao(X,Y),  Y < 25, olhar(norte), Y_new is Y + 1,
+andar :- posicao(X,Y),  Y < 25, olhar(norte), perde_vida(1), Y_new is Y + 1,
          retract(posicao(_,_)), assert(posicao(X, Y_new)),!.
 
-andar :- posicao(X,Y),  Y > 1, olhar(sul), Y_new is Y - 1,
+andar :- posicao(X,Y),  Y > 1, olhar(sul), perde_vida(1), Y_new is Y - 1,
          retract(posicao(_,_)), assert(posicao(X, Y_new)),!.
 
-andar :- posicao(X,Y),  X < 25, olhar(leste), X_new is X + 1,
+andar :- posicao(X,Y),  X < 25, olhar(leste), perde_vida(1), X_new is X + 1,
          retract(posicao(_,_)), assert(posicao(X_new, Y)),!.
 
-andar :- posicao(X,Y),  X > 1, olhar(oeste), X_new is X - 1,
+andar :- posicao(X,Y),  X > 1, olhar(oeste), perde_vida(1), X_new is X - 1,
          retract(posicao(_,_)), assert(posicao(X_new, Y)),!.
 
 adjacente(X, Y) :- posicao(PX, Y, _), PX < 3, X is PX + 1.
@@ -44,13 +44,6 @@ adjacente(X, Y) :- posicao(X, PY, _), PY > 1, Y is PY - 1.
 
 
 %ande_para(X, Y) :- retract(posicao(_,_)), assert(posicao(X, Y)).
-
-executa_acao(X) :- X = andar.
-executa_acao(X) :- X = correr.
-executa_acao(X) :- X = atacar.
-executa_acao(X) :- X = observar.
-executa_acao(X) :- X = pegar_item.
-executa_acao(X) :- X = fugir.
 
 %cheiro, barulho,.
 
