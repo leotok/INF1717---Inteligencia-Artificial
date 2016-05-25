@@ -5,6 +5,8 @@
 :-dynamic custo/1.
 :-dynamic monstrosDerrotados/1.
 
+consult("map.pl").
+
 ouro_bolsa(0).
 vida(100).
 custo(0).
@@ -52,13 +54,28 @@ executa_acao(X) :- X = fugir.
 
 %cheiro, barulho,.
 
-cheira_mal(X, Y) :- consult("map.pl"), posicao(X,Y), PX is X + 1, tile(PX,Y,[monstro|_]).
-cheira_mal(X, Y) :- consult("map.pl"), posicao(X,Y), PX is X - 1, tile(PX,Y,[monstro|_]).
-cheira_mal(X, Y) :- consult("map.pl"), posicao(X,Y), PY is Y + 1, tile(X,PY,[monstro|_]).
-cheira_mal(X, Y) :- consult("map.pl"), posicao(X,Y), PY is Y - 1, tile(X,PY,[monstro|_]).
+cheira_mal(X, Y) :- posicao(X,Y), PX is X + 1, tile(PX,Y,[monstro|_]).
+cheira_mal(X, Y) :- posicao(X,Y), PX is X - 1, tile(PX,Y,[monstro|_]).
+cheira_mal(X, Y) :- posicao(X,Y), PY is Y + 1, tile(X,PY,[monstro|_]).
+cheira_mal(X, Y) :- posicao(X,Y), PY is Y - 1, tile(X,PY,[monstro|_]).
+
+brilha(X, Y) :- posicao(X, Y), tile(X,Y,[_,ouro|_]).
+
+brisa(X, Y) :- posicao(X,Y), PX is X + 1, tile(PX,Y,[pit|_]).
+brisa(X, Y) :- posicao(X,Y), PX is X - 1, tile(PX,Y,[pit|_]).
+brisa(X, Y) :- posicao(X,Y), PY is Y + 1, tile(X,PY,[pit|_]).
+brisa(X, Y) :- posicao(X,Y), PY is Y - 1, tile(X,PY,[pit|_]).
 
 
-brilha(X, Y) :- consult("map.pl"), posicao(X, Y), tile(X,Y,[_,ouro|_]).
+parede_proxima(X, Y) :- posicao(X,Y), X = 25.
+parede_proxima(X, Y) :- posicao(X,Y), X = 1.
+parede_proxima(X, Y) :- posicao(X,Y), Y = 25.
+parede_proxima(X, Y) :- posicao(X,Y), Y = 1.
+
+%sem ameaças por perto:
+
+clean(X, Y) :- posicao(X, Y), tile(X,Y,[]).
+
 
 
 
