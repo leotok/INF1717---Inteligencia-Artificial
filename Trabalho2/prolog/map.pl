@@ -10,7 +10,7 @@
 
 
 tile(1,1,[]).
-tile(1,2,[]).
+tile(1,2,[monstro, ouro]).
 tile(1,3,[]).
 tile(1,4,[]).
 tile(1,5,[]).

@@ -43,15 +43,22 @@ adjacente(X, Y) :- posicao(X, PY, _), PY > 1, Y is PY - 1.
 
 %ande_para(X, Y) :- retract(posicao(_,_)), assert(posicao(X, Y)).
 
-executa_acao(X) :- posicao(PX, _, oeste), PX > 1, X = andar .
-executa_acao(X) :- posicao(PX, _, leste), PX < 3, X = andar .
+executa_acao(X) :- X = andar.
 executa_acao(X) :- X = correr.
 executa_acao(X) :- X = atacar.
 executa_acao(X) :- X = observar.
 executa_acao(X) :- X = pegar_item.
 executa_acao(X) :- X = fugir.
 
+%cheiro, barulho,.
 
+cheira_mal(X, Y) :- consult("map.pl"), posicao(X,Y), PX is X + 1, tile(PX,Y,[monstro|_]).
+cheira_mal(X, Y) :- consult("map.pl"), posicao(X,Y), PX is X - 1, tile(PX,Y,[monstro|_]).
+cheira_mal(X, Y) :- consult("map.pl"), posicao(X,Y), PY is Y + 1, tile(X,PY,[monstro|_]).
+cheira_mal(X, Y) :- consult("map.pl"), posicao(X,Y), PY is Y - 1, tile(X,PY,[monstro|_]).
+
+
+brilha(X, Y) :- consult("map.pl"), posicao(X, Y), tile(X,Y,[_,ouro|_]).
 
 
 
