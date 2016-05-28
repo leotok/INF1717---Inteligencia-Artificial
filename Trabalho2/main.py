@@ -20,3 +20,7 @@ from pyswip import Prolog
 # 	print(mapfile.read())
 	
 # 	#bridge = Bridge("map.pl", "facts.pl", "logic.pl")
+
+r = ["dsa", "asd"]
+
+print(r[1][2])
