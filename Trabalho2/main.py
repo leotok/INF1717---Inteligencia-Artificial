@@ -1,4 +1,14 @@
 from pyswip import Prolog
+import pygame
+from pygame import display,movie
+from helpers import *
+from pygame.locals import *
+
+from prolog_bridge import *
+from tile import *
+
+if not pygame.font: print 'Warning, fonts disabled'
+if not pygame.mixer: print 'Warning, sound disabled'
 
 
 # class Bridge(object):
@@ -21,6 +31,53 @@ from pyswip import Prolog
 	
 # 	#bridge = Bridge("map.pl", "facts.pl", "logic.pl")
 
-r = ["dsa", "asd"]
+class Main(object):
+	
+	def __init__(self, width, height):
+		self.width = width
+		self.height = height
+		self.screen = pygame.display.set_mode((self.width, self.height))
+		
+	def MainLoop(self):
 
-print(r[1][2])
+		# tell pygame to keep sending up keystrokes when they are held down
+		pygame.key.set_repeat(500, 30)
+		self.background = pygame.Surface(self.screen.get_size())
+		self.background = self.background.convert()
+		self.background.fill((145,145,145))
+
+
+		while 1:
+			self.screen.blit(self.background, (0, 0))   
+
+			pygame.display.flip()
+
+			pygame.time.wait(100)
+
+
+
+	def load_sprites(self):
+		pass
+
+
+if __name__ == '__main__':
+	
+	# MainWindow = Main(1300, 1000)
+ #    MainWindow.MainLoop()
+
+
+	bridge = Bridge("prolog/map.pl","prolog/map_observ.pl","prolog/facts.pl")
+	
+	ret = bridge.ask("tile(X,Y,[ouro])",["X","Y"])
+	print ret
+
+	ret = bridge.ask("tile(X,Y,[buraco])",["X","Y"])
+	print ret
+
+	ret = bridge.ask("vida(X)",["X"])
+	print ret
+
+	ret = bridge.ask("posicao(X,Y,Z)",["X","Y","Z"])
+	print ret
+
+ 

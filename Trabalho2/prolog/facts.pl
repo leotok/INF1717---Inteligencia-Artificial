@@ -1,7 +1,7 @@
 %% Dynamics
 
 :-dynamic posicao/3.
-:-dynamic visitado/2
+:-dynamic visitado/2.
 
 :-dynamic ouro_bolsa/1.
 :-dynamic vida/1.
