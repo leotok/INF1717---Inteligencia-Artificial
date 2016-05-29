@@ -7,12 +7,12 @@
 
 %% Tile map 12x12 e itens dos tiles
 
-%% inimigo_fraco	Inimigo 20 Dano			
-%% inimigo_forte	Inimigo 50 Dano			
-%% buraco			Buraco			
-%% teletransporte	Teletransporter			
-%% Ouro				Ouro/Tesouro			
-%% power_up			Power-up			
+%% cheiro	inimigo_fraco	Inimigo 20 Dano	(ao morrer: grito)		
+%% cheiro	inimigo_forte	Inimigo 50 Dano			
+%% brisa	buraco			Buraco			
+%% flash	teletransporte	Teletransporter			
+%% brilho	ouro				Ouro/Tesouro
+%% power_up	power_up			Power-up			
 
 tile(1,1,[ouro]).
 tile(1,2,[]).
