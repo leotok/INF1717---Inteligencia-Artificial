@@ -69,15 +69,54 @@ if __name__ == '__main__':
 	bridge = Bridge("prolog/map.pl","prolog/map_observ.pl","prolog/facts.pl")
 	
 	ret = bridge.ask("tile(X,Y,[ouro])",["X","Y"])
-	print ret
+	print "Ouros:", ret
 
 	ret = bridge.ask("tile(X,Y,[buraco])",["X","Y"])
-	print ret
+	print "Buracos:", ret
 
 	ret = bridge.ask("vida(X)",["X"])
-	print ret
+	print "Vida:", ret
 
 	ret = bridge.ask("posicao(X,Y,Z)",["X","Y","Z"])
-	print ret
+	print "Posicao atual:", ret
 
- 
+ # 	print "Teste andar:"
+
+ # 	bridge.ask("andar",[])
+ # 	ret = bridge.ask("posicao(X,Y,Z)",["X","Y","Z"])
+	# print ret
+
+	# bridge.ask("andar",[])
+ # 	ret = bridge.ask("posicao(X,Y,Z)",["X","Y","Z"])
+	# print ret
+
+	# bridge.ask("andar",[])
+ # 	ret = bridge.ask("posicao(X,Y,Z)",["X","Y","Z"])
+	# print ret
+
+	# bridge.ask("virar_direita",[])
+ # 	ret = bridge.ask("posicao(X,Y,Z)",["X","Y","Z"])
+	# print ret
+
+	# bridge.ask("andar",[])
+ # 	ret = bridge.ask("posicao(X,Y,Z)",["X","Y","Z"])
+	# print ret
+
+	# bridge.ask("andar",[])
+ # 	ret = bridge.ask("posicao(X,Y,Z)",["X","Y","Z"])
+	# print ret
+
+	ret = bridge.ask("ouro_bolsa(X)",["X"])
+	print "Ouro na bolsa:", ret
+
+	ret = bridge.ask("melhor_acao(A,X,Y)",["A","X","Y"])
+	print "Melhor acao:", ret
+
+ 	ret = bridge.ask("ouro_bolsa(X)",["X"])
+	print "Ouro na bolsa:", ret
+
+	ret = bridge.ask("melhor_acao(A,X,Y)",["A","X","Y"])
+	print "Melhor acao:", ret
+
+ 	ret = bridge.ask("ouro_bolsa(X)",["X"])
+	print "Ouro na bolsa:", ret

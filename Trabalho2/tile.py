@@ -1,4 +1,3 @@
-from plane import *
 import pygame
 from helpers import *
 from pygame.locals import *
