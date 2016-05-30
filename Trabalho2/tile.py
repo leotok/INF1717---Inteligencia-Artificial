@@ -40,6 +40,14 @@ class Tilemap(list):
 		except IndexError:
 			print "IndexError: ", x, y
 
+	def get_item_sprite(self, x, y):
+		try:
+			x = x-1
+			y = y-1
+			return self.tile_itens_list[ (x * 12) + y ]
+		except IndexError:
+			print "IndexError: ", x, y
+
 	def print_map_log(self):
 		j = 0
 		for i in range(len(self)):

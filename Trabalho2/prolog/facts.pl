@@ -59,6 +59,11 @@ adjacente(X, Y) :- posicao(PX, Y, _), PX > 1, X is PX - 1.
 adjacente(X, Y) :- posicao(X, PY, _), PY < 12, Y is PY + 1.
 adjacente(X, Y) :- posicao(X, PY, _), PY > 1, Y is PY - 1.
 
+adjacente_a(X, Y, I, J) :-  X < 12, I is X + 1, J is Y.
+adjacente_a(X, Y, I, J) :-  X > 1, I is X - 1, J is Y.
+adjacente_a(X, Y, I, J) :-  Y < 12, J is Y + 1, I is X.
+adjacente_a(X, Y, I, J) :-  Y > 1, J is Y - 1, I is X.
+
 
 sentidos(S) :- posicao(X,Y,_), tile(X,Y,[ouro]), S = brilho, !.
 sentidos(S) :- posicao(X,Y,_), tile(X,Y,[power_up]), S = power_up, !.
@@ -83,15 +88,19 @@ observar :- sentidos(S), S = power_up, posicao(I,J,_), retract(tile_obs(I,J,_)),
 observar :- sentidos(S), adjacente(I,J), \+ seguro(I,J), S = brisa, tile_obs(I,J,[brisa]), 
 			assert(conhecido(I,J)), retract(tile_obs(I,J,_)), assert(tile_obs(I,J,[buraco])).
 observar :- sentidos(S), adjacente(I,J), \+ seguro(I,J), S = cheiro, tile_obs(I,J,[cheiro]), 
-			assert(conhecido(I,J)), retract(tile_obs(I,J,_)), assert(tile_obs(I,J,[buraco])).
+			assert(conhecido(I,J)), retract(tile_obs(I,J,_)), assert(tile_obs(I,J,[inimigo])).
 observar :- sentidos(S), adjacente(I,J), \+ seguro(I,J), \+ conhecido(I,J), retract(tile_obs(I,J,_)), assert(tile_obs(I,J,[S])).
 
 
+marcar_seguro_em_volta(X,Y) :- adjacente_a(X,Y,I,J), adjacente_a(I,J, II,JJ), tile_obs(II,JJ,[brisa]), assert(seguro(II,JJ)), 
+							   retract(tile_obs(II,JJ,_)), assert(tile_obs(II,JJ,[nada])) .
+marcar_seguro_em_volta(X,Y) :- adjacente_a(X,Y,I,J), adjacente_a(I,J, II,JJ), tile_obs(II,JJ,[cheiro]), assert(seguro(II,JJ)), 
+							   retract(tile_obs(II,JJ,_)), assert(tile_obs(II,JJ,[nada])) .
 
 %%  MELHOR ACAO
 
 %% pegar ouro e power_up
-melhor_acao(A,X,Y,D) :-  observar, posicao(X,Y,D), tile_obs(X,Y, [brilho]), A = pegar_ouro, pegar_ouro, aumenta_custo(-1),
+melhor_acao(A,X,Y,D) :-  observar, posicao(X,Y,D), tile_obs(X,Y, [brilho]), A = pegar_ouro, pegar_ouro, aumenta_custo(1000),
 					     retract(tile_obs(X,Y,_)),retract(tile(X,Y,_)), assert(tile_obs(X,Y,[nada])), assert(tile(X,Y,[])), !.
 melhor_acao(A,X,Y,D) :-  posicao(X,Y,D), tile_obs(X,Y,[power_up]), vida(V), V < 50, A = pegar_power_up, pegar_power_up,
 						 aumenta_custo(-1), retract(tile_obs(X,Y,_)), assert(tile_obs(X,Y,[nada])), !.
@@ -104,8 +113,8 @@ melhor_acao(A,X,Y,D) :-  observar, posicao(X,Y,D), D = norte, XX is X - 1, tile_
 melhor_acao(A,X,Y,D) :-  observar, posicao(X,Y,D), D = oeste, YY is Y - 1, tile_obs(X,YY,[nada]) ,A = andar, andar, 
 						 aumenta_custo(-1), assert(seguro(X, YY)), !.
 melhor_acao(A,X,Y,D) :-  observar, posicao(X,Y,D), D = sul, XX is X + 1, tile_obs(XX,Y,[nada]) ,A = andar, andar, 
-						 aumenta_custo(-1), assert(seguro(X, Y)), !.
-melhor_acao(A,X,Y,D) :-  posicao(X,Y,D), virar_direita, virar_direita, andar, virar_direita, A = virar_direita, aumenta_custo(-1), !.
+						 aumenta_custo(-1), assert(seguro(XX, Y)), !.
+melhor_acao(A,X,Y,D) :-  posicao(X,Y,D), virar_direita, virar_direita, andar, virar_direita, A = voltar_tentar_outro_caminho, aumenta_custo(-1), !.
 
 %% nada para fazer
 melhor_acao(A,X,Y,D) :-  posicao(X,Y,D), A = nada_pra_fazer_vou_me_envolver_com_as_fans.

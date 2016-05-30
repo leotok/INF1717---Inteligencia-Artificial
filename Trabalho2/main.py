@@ -20,7 +20,7 @@ class Main(object):
 		
 	def MainLoop(self):
 
-
+		pygame.init()
 		bridge = Bridge("prolog/map.pl","prolog/map_observ.pl","prolog/facts.pl")
 		
 		ret = bridge.ask("vida(X)",["X"])
@@ -68,15 +68,21 @@ class Main(object):
 					or (event.key == K_DOWN)):
 						print "Key pressed"
 
+			pygame.time.wait(200)
 			if melhor_acao[0][0] != "nada_pra_fazer_vou_me_envolver_com_as_fans":
 
 				print
 				melhor_acao = bridge.ask("melhor_acao(A,X,Y,D)",["A","X","Y","D"])
 				print "Melhor acao:", melhor_acao
-				custo = bridge.ask("custo(X)",["X"])
-				print "Custo:", custo
 				self.posicao_atual = bridge.ask("posicao(X,Y,Z)",["X","Y","Z"])
 				print "Posicao atual:", self.posicao_atual
+
+				resposta = bridge.ask("ouro_bolsa(X)",["X"])
+				ouro = resposta[0][0]
+				resposta = bridge.ask("vida(X)",["X"])
+				vida = resposta[0][0]
+				resposta = bridge.ask("custo(X)",["X"])
+				custo = resposta[0][0]
 
 				self.x = self.posicao_atual[0][0]
 				self.y = self.posicao_atual[0][1]
@@ -85,8 +91,22 @@ class Main(object):
 			self.tilemap.tile_sprites_group.draw(self.screen)
 			self.tilemap.tile_itens_group.draw(self.screen)
 			self.plane_sprite.draw(self.screen)
+
+			if pygame.font:
+				font = pygame.font.Font(None,42)
+				text_ouro = font.render("Pokemons raros: %s" %(ouro), 1, (35, 35, 35))
+				text_custo = font.render("Custo: %s" %(custo), 1, (35, 35, 35))
+				text_vida = font.render("Vida: %s" %(vida), 1, (35, 35, 35))
+				textpos = 	(730,30)
+				textpos_2 = (textpos[0], textpos[1] + 40)
+				textpos_3 = (textpos[0], textpos_2[1] + 40)
+
+				self.screen.blit(text_ouro, textpos)
+				self.screen.blit(text_custo, textpos_2)
+				self.screen.blit(text_vida, textpos_3)
+
 			pygame.display.flip()
-			pygame.time.wait(200)
+			
 
 			self.x = self.posicao_atual[0][0]
 			self.y = self.posicao_atual[0][1]
@@ -106,5 +126,5 @@ class Main(object):
 
 if __name__ == '__main__':
 	
-	MainWindow = Main(1300, 720)
+	MainWindow = Main(1000, 720)
 	MainWindow.MainLoop()
