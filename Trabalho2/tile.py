@@ -118,7 +118,7 @@ class GrassSprite(pygame.sprite.Sprite):
 		self.y = y
 		self.rect = rect
 
-		self.image= load_image("grass.jpg",-1)
+		self.image= load_image("rock.png",-1)
 
 class PlaneSprite(pygame.sprite.Sprite):
     

@@ -170,7 +170,7 @@ tile_obs(11,10,[]).
 tile_obs(11,11,[]).
 tile_obs(11,12,[]).
 
-tile_obs(12,1,[]).
+tile_obs(12,1,[nada]).
 tile_obs(12,2,[]).
 tile_obs(12,3,[]).
 tile_obs(12,4,[]).

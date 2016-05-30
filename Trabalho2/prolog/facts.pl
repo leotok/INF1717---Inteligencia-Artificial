@@ -6,7 +6,7 @@
 %% Dynamics
 
 :-dynamic posicao/3.
-:-dynamic visitado/2.
+:-dynamic seguro/2.
 
 :-dynamic ouro_bolsa/1.
 :-dynamic vida/1.
@@ -22,6 +22,7 @@
 :-dynamic tile/3.
 
 posicao(12,1, leste).
+seguro(12,1).
 
 ouro_bolsa(0).
 vida(100).
@@ -78,23 +79,27 @@ sentidos(S) :- adjacente(I,J), tile(I,J,[]), S = nada, !.
 
 observar :- sentidos(S), S = brilho, posicao(I,J,_), retract(tile_obs(I,J,_)), assert(tile_obs(I,J,[S])), !.
 observar :- sentidos(S), S = power_up, posicao(I,J,_), retract(tile_obs(I,J,_)), assert(tile_obs(I,J,[S])), !.
-observar :- sentidos(S), adjacente(I,J), retract(tile_obs(I,J,_)), assert(tile_obs(I,J,[S])).
+observar :- sentidos(S), adjacente(I,J), \+ seguro(I,J), retract(tile_obs(I,J,_)), assert(tile_obs(I,J,[S])).
 
 
 %%  MELHOR ACAO
 
 %% pegar ouro e power_up
-melhor_acao(A,X,Y,D) :-  observar, posicao(X,Y,D), tile_obs(X,Y, [brilho]), A = pegar_ouro, pegar_ouro, aumenta_custo(1),
+melhor_acao(A,X,Y,D) :-  observar, posicao(X,Y,D), tile_obs(X,Y, [brilho]), A = pegar_ouro, pegar_ouro, aumenta_custo(-1),
 					     retract(tile_obs(X,Y,_)), assert(tile_obs(X,Y,[nada])), !.
 melhor_acao(A,X,Y,D) :-  posicao(X,Y,D), tile_obs(X,Y,[power_up]), vida(V), V < 50, A = pegar_power_up, pegar_power_up,
-						 aumenta_custo(1), retract(tile_obs(X,Y,_)), assert(tile_obs(X,Y,[nada])), !.
+						 aumenta_custo(-1), retract(tile_obs(X,Y,_)), assert(tile_obs(X,Y,[nada])), !.
 
 %% andar
-melhor_acao(A,X,Y,D) :-  observar, posicao(X,Y,D), D = leste, YY is Y + 1, tile_obs(X,YY,[nada]) ,A = andar, andar, aumenta_custo(1), !.
-melhor_acao(A,X,Y,D) :-  observar, posicao(X,Y,D), D = norte, XX is X - 1, tile_obs(XX,Y,[nada]) ,A = andar, andar, aumenta_custo(1), !.
-melhor_acao(A,X,Y,D) :-  observar, posicao(X,Y,D), D = oeste, YY is Y - 1, tile_obs(X,YY,[nada]) ,A = andar, andar, aumenta_custo(1), !.
-melhor_acao(A,X,Y,D) :-  observar, posicao(X,Y,D), D = sul, XX is X + 1, tile_obs(XX,Y,[nada]) ,A = andar, andar, aumenta_custo(1), !.
-melhor_acao(A,X,Y,D) :-  posicao(X,Y,D), virar_direita, A = virar_direita, !.
+melhor_acao(A,X,Y,D) :-  observar, posicao(X,Y,D), D = leste, YY is Y + 1, tile_obs(X,YY,[nada]) ,A = andar, andar,
+						 aumenta_custo(-1), assert(seguro(X, YY)), !.
+melhor_acao(A,X,Y,D) :-  observar, posicao(X,Y,D), D = norte, XX is X - 1, tile_obs(XX,Y,[nada]) ,A = andar, andar,
+						 aumenta_custo(-1), assert(seguro(XX, Y)), !.
+melhor_acao(A,X,Y,D) :-  observar, posicao(X,Y,D), D = oeste, YY is Y - 1, tile_obs(X,YY,[nada]) ,A = andar, andar, 
+						 aumenta_custo(-1), assert(seguro(X, YY)), !.
+melhor_acao(A,X,Y,D) :-  observar, posicao(X,Y,D), D = sul, XX is X + 1, tile_obs(XX,Y,[nada]) ,A = andar, andar, 
+						 aumenta_custo(-1), assert(seguro(X, Y)), !.
+melhor_acao(A,X,Y,D) :-  posicao(X,Y,D), virar_direita, virar_direita, andar, virar_direita, A = virar_direita, aumenta_custo(1), !.
 
 %% nada para fazer
 melhor_acao(A,X,Y,D) :-  posicao(X,Y,D), A = nada_pra_fazer_vou_me_envolver_com_as_fans.
