@@ -39,6 +39,7 @@ class Main(object):
 		self.tilemap.print_map_log()
 
 		self.tilemap.create_sprite_map()
+		self.tilemap.create_sprite_itens()
 		self.load_sprites()
 
 		# tell pygame to keep sending up keystrokes when they are held down
@@ -82,6 +83,7 @@ class Main(object):
 			
 			self.screen.blit(self.background, (0, 0))
 			self.tilemap.tile_sprites_group.draw(self.screen)
+			self.tilemap.tile_itens_group.draw(self.screen)
 			self.plane_sprite.draw(self.screen)
 			pygame.display.flip()
 			pygame.time.wait(200)
@@ -104,5 +106,5 @@ class Main(object):
 
 if __name__ == '__main__':
 	
-	MainWindow = Main(1300, 700)
+	MainWindow = Main(1300, 720)
 	MainWindow.MainLoop()
