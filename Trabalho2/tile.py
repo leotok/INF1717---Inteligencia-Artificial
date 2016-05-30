@@ -36,7 +36,6 @@ class Tilemap(list):
 		try:
 			x = x-1
 			y = y-1
-			print x,y,  (x*12) + y
 			return self.tile_sprites_list[ (x * 12) + y ]
 		except IndexError:
 			print "IndexError: ", x, y
@@ -77,7 +76,6 @@ class Tilemap(list):
 
 		for x ,line in enumerate(self.matrix):
 			for y, tile in enumerate(line):
-				print x, y
 				tile_sprite = GrassSprite(pygame.Rect(y* width, x* height, width, height), x  , y ) 
 				self.tile_sprites_group.add(tile_sprite)
 				self.tile_sprites_list.append(tile_sprite)

@@ -50,8 +50,6 @@ class Main(object):
 		close = 0
 
 		print
-		ret = bridge.ask("sentidos(S)",["S"])
-		print "sentido:", ret
 		melhor_acao = bridge.ask("melhor_acao(A,X,Y,D)",["A","X","Y","D"])
 		print "Melhor acao:", melhor_acao
 		ret = bridge.ask("custo(X)",["X"])
@@ -72,8 +70,6 @@ class Main(object):
 			if melhor_acao[0][0] != "nada_pra_fazer_vou_me_envolver_com_as_fans":
 
 				print
-				sentido = bridge.ask("sentidos(S)",["S"])
-				print "sentido:", sentido
 				melhor_acao = bridge.ask("melhor_acao(A,X,Y,D)",["A","X","Y","D"])
 				print "Melhor acao:", melhor_acao
 				custo = bridge.ask("custo(X)",["X"])
@@ -81,6 +77,8 @@ class Main(object):
 				self.posicao_atual = bridge.ask("posicao(X,Y,Z)",["X","Y","Z"])
 				print "Posicao atual:", self.posicao_atual
 
+				self.x = self.posicao_atual[0][0]
+				self.y = self.posicao_atual[0][1]
 			
 			self.screen.blit(self.background, (0, 0))
 			self.tilemap.tile_sprites_group.draw(self.screen)
