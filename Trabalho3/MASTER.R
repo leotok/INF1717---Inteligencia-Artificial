@@ -7,7 +7,7 @@ library(tm)
 
 # sampling some txts (size of sample = 15)
 
-texts <- file.path(getwd(), ["sample")
+texts <- file.path(getwd(), "sample")
 
 docs <- Corpus(DirSource(texts))   
 
