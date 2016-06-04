@@ -1,0 +1,46 @@
+@relation MovieReview
+
+@attribute awful numeric
+@attribute bored numeric
+@attribute confusing numeric
+@attribute erroneously numeric
+@attribute ever numeric
+@attribute fails numeric
+@attribute inept numeric
+@attribute lachy numeric
+@attribute lack numeric
+@attribute late numeric
+@attribute misdirected numeric
+@attribute pretentious numeric
+@attribute semi-awful numeric
+@attribute slow numeric
+@attribute terribly numeric
+@attribute uninspired numeric
+@attribute wrong-headed numeric
+@attribute wrote numeric
+@attribute amateurish numeric
+@attribute atrocious numeric
+@attribute boring numeric
+@attribute crap numeric
+@attribute disappointed numeric
+@attribute failed numeric
+@attribute failures numeric
+@attribute ignorant numeric
+@attribute irresponsible numeric
+@attribute irritating numeric
+@attribute lack numeric
+@attribute lacked numeric
+@attribute late numeric
+@attribute predict numeric
+@attribute ridiculous numeric
+@attribute sadly numeric
+@attribute stinker numeric
+@attribute unbalanced numeric
+@attribute uncertain numeric
+@attribute underdeveloped numeric
+@attribute wasted numeric
+
+@attribute class { Positivo , Negativo }
+
+@data
+ "Negativo"
