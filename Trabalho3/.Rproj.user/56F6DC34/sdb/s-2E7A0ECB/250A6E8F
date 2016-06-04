@@ -1,0 +1,22 @@
+{
+    "contents" : "",
+    "created" : 1464801371563.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "250A6E8F",
+    "lastKnownWriteTime" : 7741240722073845761,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "caption" : "sort(freq)",
+        "contentUrl" : "content?title=sort(freq)&file=ac9de8286664439c9d07fdaf113e78d6.htm",
+        "displayedObservations" : 586,
+        "displayedVariables" : 2,
+        "totalObservations" : 586,
+        "variables" : 1
+    },
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}

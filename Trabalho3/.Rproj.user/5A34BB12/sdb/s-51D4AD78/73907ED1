@@ -1,0 +1,16 @@
+{
+    "contents" : "Needed <- c(\"tm\", \"SnowballCC\", \"RColorBrewer\", \"ggplot2\", \"wordcloud\", \"biclust\", \"cluster\", \"igraph\", \"fpc\")   \ninstall.packages(Needed, dependencies=TRUE)   \n\ninstall.packages(\"Rcampdf\", repos = \"http://datacube.wu.ac.at/\", type = \"source\")    \n\nlibrary(tm) \n\n# sampling some txts (size of sample = 15)\n\ntexts <- file.path(getwd(), [\"sample\")\n\ndocs <- Corpus(DirSource(texts))   \n\nsummary(docs) \n\n\ninspect(docs[2])\n\n\ndocs <- tm_map(docs, removePunctuation)   \n\ndocs <- tm_map(docs, removeNumbers)   \n\n\ndocs <- tm_map(docs, tolower)   \n\n\ndocs <- tm_map(docs, removeWords, stopwords(\"english\"))   \n\nlibrary(SnowballC)   \ndocs <- tm_map(docs, stemDocument) \n\ndocs <- tm_map(docs, stripWhitespace)  \n\ndocs <- tm_map(docs, PlainTextDocument)   \n\ndtm <- DocumentTermMatrix(docs)   \ndtm   \n\ntdm <- TermDocumentMatrix(docs)   \ntdm   \n\nfreq <- colSums(as.matrix(dtm))   \nlength(freq)\n\n\ndtms <- removeSparseTerms(dtm, 0.1) # This makes a matrix that is 10% empty space, maximum.   \ninspect(dtms)  \n\nView(sort(freq))\n",
+    "created" : 1464754993275.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "451651608",
+    "id" : "73907ED1",
+    "lastKnownWriteTime" : 1464755016,
+    "path" : "~/trabalhos ilan/2016.1/disiciplinas/INTELIGENCIA ARTIFICIAL - INF 1771/trab 3/code/MASTER.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
