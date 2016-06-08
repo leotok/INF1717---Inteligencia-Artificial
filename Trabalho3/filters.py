@@ -1,0 +1,47 @@
+import re
+import nltk
+from bs4 import BeautifulSoup
+
+
+import sys
+
+def _slugify(text):
+	# Removes html tags,punctuation and puts everything in lowercase
+
+	slug = BeautifulSoup(text,"html5lib").get_text()
+	slug = re.sub("[^a-zA-Z]", " ", slug )  
+	slug = slug.lower()
+	return slug
+
+def _get_meaningful_words(text):
+    
+	words = text.split()	
+
+	try:
+		stopwords_set = set(nltk.corpus.stopwords.words("english"))
+	except:
+		nltk.download("stopwords")
+		stopwords_set = set(nltk.corpus.stopwords.words("english"))
+
+	filtered = []
+	for word in words:
+		if word not in stopwords_set and len(word) > 2:
+			try:
+				if word[-1] == 's':
+					filtered.append(word[0:-1]) 
+				else:
+					filtered.append(word)
+			except IndexError:
+				continue
+	return filtered
+
+
+
+def filter_text(text):
+	filtered = _slugify(text)
+	filtered = _get_meaningful_words(filtered)
+	return filtered
+
+
+
+
