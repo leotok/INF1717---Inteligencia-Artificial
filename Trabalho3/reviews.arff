@@ -1,5 +1,7 @@
 @relation MovieReview
 
+%% Palavras negativas
+
 @attribute awful numeric
 @attribute bored numeric
 @attribute confusing numeric
@@ -40,9 +42,40 @@
 @attribute underdeveloped numeric
 @attribute wasted numeric
 
+%% Palavras positivas
+
+@attribute amazing numeric
+@attribute applause numeric
+@attribute compliments numeric
+@attribute cool numeric
+@attribute dare numeric
+@attribute daring numeric
+@attribute deliver numeric
+@attribute efficiently numeric
+@attribute entertained numeric
+@attribute entertaining numeric
+@attribute exciting numeric
+@attribute extraordinary numeric
+@attribute great numeric
+@attribute happy numeric
+@attribute informative numeric
+@attribute intense numeric
+@attribute interest numeric
+@attribute interesting numeric
+@attribute laugh numeric
+@attribute love numeric
+@attribute lucky numeric
+@attribute perfectly numeric
+@attribute pleasantly numeric
+@attribute pleasure numeric
+@attribute powerful numeric
+@attribute rigors numeric
+@attribute serious numeric
+@attribute strongly numeric
+@attribute successful numeric
+
 @attribute class { Positivo , Negativo }
 
 
 
 @data
- "Negativo"
