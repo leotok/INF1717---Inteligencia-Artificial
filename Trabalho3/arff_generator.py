@@ -75,7 +75,6 @@ def generate_arff(reviews,filename,features=None):
 			if i % 1000 == 0 and i != 0:
 				print i
 
-			rev_data += "{"
 			word_count_for_review[review] = {}
 
 			for feature in features:
@@ -91,7 +90,7 @@ def generate_arff(reviews,filename,features=None):
 
 			if not wrote_features:
 				wrote_features = True
-			rev_data += review.classification+"}\n"
+			rev_data += review.classification+"\n"
 
 		f.write("@attribute class {p,n}\n")
 		f.write("\n@data\n")
@@ -126,16 +125,21 @@ def generate_vector(reviews,features=None):
 
     
 def toWeka():
-    working_folder = os.getcwd()+"/movie_review_dataset/"
 
-    print "Reading part1/neg..."
-    reviews = generate_reviews(working_folder+"part1/neg",'n')
-    print "Reading part1/pos..."
-    reviews += generate_reviews(working_folder+"part1/pos",'p')
-    print "Reading part2/neg..."
-    reviews += generate_reviews(working_folder+"part2/neg",'n')
-    print "Reading part2/pos..."
-    reviews += generate_reviews(working_folder+"part2/pos",'p')
+	with open("words_collection.txt", "r") as f:
+		words_collection = f.read()
+	words_collection = words_collection.split()
+
+	working_folder = os.getcwd()+"/movie_review_dataset/"
+
+	print "Reading part1/neg..."
+	reviews = generate_reviews(working_folder+"part1/neg",'n')
+	print "Reading part1/pos..."
+	reviews += generate_reviews(working_folder+"part1/pos",'p')
+	print "Reading part2/neg..."
+	reviews += generate_reviews(working_folder+"part2/neg",'n')
+	print "Reading part2/pos..."
+	reviews += generate_reviews(working_folder+"part2/pos",'p')
 
     # working_folder = os.getcwd()+"/sample_neg/"
     # reviews = generate_reviews(working_folder,'n')
@@ -143,13 +147,13 @@ def toWeka():
     # working_folder = os.getcwd()+"/sample_pos/"
     # reviews += generate_reviews(working_folder,'p')
 
-    print "Generating 'reviews_dataset.arff'..."
+	print "Generating 'reviews_dataset.arff'..."
 
-    features_used = generate_arff(reviews,"reviews_dataset.arff")	
+	features_used = generate_arff(reviews,"reviews_dataset_words_col.arff", features=words_collection)	
 
-    print "Done!"
+	print "Done!"
     
 
 if __name__ == '__main__':
 
-    toWeka()
+	toWeka()

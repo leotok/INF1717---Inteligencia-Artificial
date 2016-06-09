@@ -1,0 +1,187 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.bayes.BayesNet -D -Q weka.classifiers.bayes.net.search.local.K2 -- -P 1 -S BAYES -E weka.classifiers.bayes.net.estimate.SimpleEstimator -- -A 0.5
+Relation:     review
+Instances:    50000
+Attributes:   138
+              [list of attributes omitted]
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+Bayes Network Classifier
+not using ADTree
+#attributes=138 #classindex=137
+Network structure (nodes followed by parents)
+lack(2): class 
+serious(1): class 
+hate(1): class 
+worse(3): class 
+awful(3): class 
+try(2): class 
+odd(1): class 
+mess(1): class 
+brilliant(3): class 
+involved(1): class 
+weird(2): class 
+missing(1): class 
+love(3): class 
+win(2): class 
+memorable(2): class 
+positive(2): class 
+recommend(2): class 
+flaw(1): class 
+clever(1): class 
+oscar(2): class 
+award(2): class 
+basically(2): class 
+excellent(3): class 
+effort(2): class 
+potential(2): class 
+shame(1): class 
+beautiful(2): class 
+crazy(1): class 
+amazing(3): class 
+intelligent(2): class 
+badly(2): class 
+okay(2): class 
+tried(2): class 
+beauty(2): class 
+wrong(2): class 
+suck(2): class 
+attempt(2): class 
+appreciate(2): class 
+worst(3): class 
+hell(2): class 
+cold(1): class 
+perfect(2): class 
+thank(2): class 
+interesting(1): class 
+better(2): class 
+good(1): class 
+killer(2): class 
+easily(1): class 
+realistic(2): class 
+truth(2): class 
+rock(1): class 
+successful(1): class 
+leave(1): class 
+missed(1): class 
+enjoyable(2): class 
+cheesy(2): class 
+issue(1): class 
+pathetic(2): class 
+masterpiece(2): class 
+terrible(3): class 
+obviou(2): class 
+powerful(2): class 
+quality(1): class 
+sadly(2): class 
+wonderful(3): class 
+predictable(2): class 
+wasted(2): class 
+loved(2): class 
+perfectly(2): class 
+unfortunately(2): class 
+boring(3): class 
+pointles(2): class 
+silly(2): class 
+sad(1): class 
+recommended(2): class 
+mis(2): class 
+plenty(1): class 
+entertaining(2): class 
+fine(2): class 
+slow(2): class 
+pretty(2): class 
+interested(1): class 
+suggest(1): class 
+lame(2): class 
+bad(4): class 
+stupid(2): class 
+fail(2): class 
+best(4): class 
+superb(2): class 
+horrible(3): class 
+deliver(1): class 
+weak(2): class 
+talented(1): class 
+liked(2): class 
+sweet(2): class 
+laugh(2): class 
+respect(1): class 
+bizarre(1): class 
+late(2): class 
+decent(2): class 
+interest(1): class 
+waste(2): class 
+talent(1): class 
+fun(2): class 
+succes(2): class 
+creepy(1): class 
+believable(2): class 
+funny(1): class 
+different(2): class 
+hilariou(3): class 
+strange(1): class 
+well(4): class 
+greatest(2): class 
+fantastic(2): class 
+unique(2): class 
+disappointed(2): class 
+like(3): class 
+lost(1): class 
+poorly(2): class 
+laughing(1): class 
+power(2): class 
+convincing(1): class 
+crap(2): class 
+exciting(1): class 
+favorite(3): class 
+bored(2): class 
+ridiculou(2): class 
+amusing(1): class 
+classic(2): class 
+deep(2): class 
+annoying(2): class 
+incredible(2): class 
+deserve(1): class 
+nice(2): class 
+poor(3): class 
+entertainment(1): class 
+original(2): class 
+class(2): 
+LogScore Bayes: -959711.2233240331
+LogScore BDeu: -959960.4313000633
+LogScore MDL: -960195.9990194908
+LogScore ENTROPY: -958913.8552927885
+LogScore AIC: -959150.8552927885
+
+
+Time taken to build model: 6.33 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances       40244               80.488  %
+Incorrectly Classified Instances      9756               19.512  %
+Kappa statistic                          0.6098
+Mean absolute error                      0.2513
+Root mean squared error                  0.3717
+Relative absolute error                 50.256  %
+Root relative squared error             74.3405 %
+Total Number of Instances            50000     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,852    0,243    0,778      0,852    0,814      0,613    0,886     0,880     p
+                 0,757    0,148    0,837      0,757    0,795      0,613    0,886     0,890     n
+Weighted Avg.    0,805    0,195    0,808      0,805    0,804      0,613    0,886     0,885     
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 21307  3693 |     a = p
+  6063 18937 |     b = n
+
