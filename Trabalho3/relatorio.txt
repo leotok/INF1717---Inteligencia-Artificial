@@ -1,0 +1,5 @@
+J48 (C45)
+IBK (KNN)
+MultiLayerPerceptron
+LibSVM 
+SMO

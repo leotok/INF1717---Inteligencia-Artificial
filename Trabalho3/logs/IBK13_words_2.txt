@@ -1,0 +1,42 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.lazy.IBk -K 13 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation:     review
+Instances:    50000
+Attributes:   138
+              [list of attributes omitted]
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+IB1 instance-based classifier
+using 13 nearest neighbour(s) for classification
+
+
+Time taken to build model: 0.01 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances       36726               73.452  %
+Incorrectly Classified Instances     13274               26.548  %
+Kappa statistic                          0.469 
+Mean absolute error                      0.3493
+Root mean squared error                  0.4222
+Relative absolute error                 69.8507 %
+Root relative squared error             84.4455 %
+Total Number of Instances            50000     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,794    0,325    0,710      0,794    0,749      0,472    0,809     0,785     p
+                 0,675    0,206    0,766      0,675    0,718      0,472    0,809     0,804     n
+Weighted Avg.    0,735    0,265    0,738      0,735    0,734      0,472    0,809     0,795     
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 19849  5151 |     a = p
+  8123 16877 |     b = n
+

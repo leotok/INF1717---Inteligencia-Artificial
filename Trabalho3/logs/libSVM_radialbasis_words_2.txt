@@ -1,0 +1,40 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.LibSVM -S 0 -K 2 -D 3 -G 0.0 -R 0.0 -N 0.5 -M 40.0 -C 1.0 -E 0.001 -P 0.1 -model /Users/LeoWajnsztok -seed 1
+Relation:     review
+Instances:    50000
+Attributes:   138
+              [list of attributes omitted]
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+LibSVM wrapper, original code by Yasser EL-Manzalawy (= WLSVM)
+
+Time taken to build model: 228.19 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances       40459               80.918  %
+Incorrectly Classified Instances      9541               19.082  %
+Kappa statistic                          0.6184
+Mean absolute error                      0.1908
+Root mean squared error                  0.4368
+Relative absolute error                 38.164  %
+Root relative squared error             87.3659 %
+Total Number of Instances            50000     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,863    0,245    0,779      0,863    0,819      0,622    0,809     0,741     p
+                 0,755    0,137    0,847      0,755    0,798      0,622    0,809     0,762     n
+Weighted Avg.    0,809    0,191    0,813      0,809    0,809      0,622    0,809     0,751     
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 21580  3420 |     a = p
+  6121 18879 |     b = n
+
