@@ -124,7 +124,7 @@ def generate_vector(reviews,features=None):
     return vect,features
 
     
-def toWeka():
+def run():
 
 	with open("words_collection.txt", "r") as f:
 		words_collection = f.read()
@@ -156,4 +156,4 @@ def toWeka():
 
 if __name__ == '__main__':
 
-	toWeka()
+	run()
