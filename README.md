@@ -1,4 +1,4 @@
-# Artificial Intelligence NF1771 @ PUC-Rio
+# Artificial Intelligence INF1771 @ PUC-Rio
 
 Projects 1, 2, 3 and 4 for the subject "Artificial Intelligence" ("Inteligencia Artificial" - ptBR) of code INF1771 offered by PUC-Rio.
 
