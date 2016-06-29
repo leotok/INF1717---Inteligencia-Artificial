@@ -99,31 +99,7 @@ def generate_arff(reviews,filename,features=None):
 
 	return features	
 
-def generate_vector(reviews,features=None):
-    vect = []
-    if not features:
-        features = Review.most_frequent_words(1000)
-    num_features = len(features)
-    print len(features)
-    i = 0
-    for review in reviews:
-        if i%1000 == 0:
-            print i
-        i+=1
-        freqs = [0]*num_features
-        for word in review.feature_frequency.keys():
-            try:
-                freqs[features[word]] = review.feature_frequency[word]
-            except KeyError:
-                continue
-        if review.classification == 'p':
-            freqs.append(1)
-        else:
-            freqs.append(0)
-        vect.append(freqs)
-    return vect,features
 
-    
 def run():
 
 	with open("words_collection.txt", "r") as f:

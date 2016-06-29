@@ -1,19 +1,19 @@
 	METHOD 					  %
 
-libSVM_radialbasis_words 	80.918
-SMO_word					80.798
-bayesnet_words 				80.488
-libSVM_sigmoid_words 		80.476
-perceptron_words 			77.214
-J48_words 					76.544
-IBK13_words 				73.452
-IBK15_words 				73.358
-IBK11_words					73.348
-IBK9_words 					72.948
-IBK7_words 					72.666
-IBK5_words 					72.212
-IBK3_words 					71.218
-IBK1_words 					68.714
+libSVM_radialbasis		 	80.918
+SMO 						80.798
+bayesnet	 				80.488
+libSVM_sigmoid		 		80.476
+perceptron		 			77.214
+J48		 					76.544
+IBK_13		 				73.452
+IBK_15		 				73.358
+IBK_11						73.348
+IBK_9	 					72.948
+IBK_7	 					72.666
+IBK_5	 					72.212
+IBK_3	 					71.218
+IBK_1	 					68.714
 
 MEAN 						75.311
 STANDARD DEVIATION			 3.907
